@@ -1,0 +1,26 @@
+from django.shortcuts import render
+from pickcycles.models import Pickcycle
+from dropcycles.models import Dropcycle
+from cycles.models import Cycle
+from payments.models import Payment
+from django.contrib.auth.models import User
+from django.utils import timezone
+
+def payment(request):
+
+    t1 = Pickcycle.objects.get(Picker_id = request.user.id ).pick_date
+    # Pickcycle.objects.get(Picker_id = request.user.id ).delete()
+    t2 = Dropcycle.objects.get(droper_id = request.user.id ).drop_date
+    res = (t2 - t1).total_seconds() / 60.0
+    
+    #print(t1,'-',t2,'=',res)
+    pickcycletime = res
+
+    Balance = Payment.objects.get(balanceOwner_id = request.user.id ).balance
+    #print(Balance)
+    
+
+
+
+    return render(request, 'payments/payment.html', {'pickcycletime':pickcycletime}, {'Balance':Balance})
+    

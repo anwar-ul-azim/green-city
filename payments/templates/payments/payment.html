@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if error %}
+{{error}}
+<br />
+<br />
+
+{% endif %}
+
+<h1>Payment</h1>
+{{ pickcycletime }}
+{{ Balance }}
+
+
+{% endblock %}

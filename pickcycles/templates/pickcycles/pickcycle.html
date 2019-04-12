@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+
+
+
+<h1>Pick Cycle</h1>
+
+<!--<form method="POST" action="{% url 'pickcycle' %}">
+    {% csrf_token %}
+    <textarea name="message" placeholder="message...."></textarea>
+    <input type="submit" />
+</form>-->
+
+
+
+<form method="POST" action="{% url 'pickcycle' %}">
+    {% if error %}<span class="text-danger">{{  error }}</span><br>{% endif %}
+        {% csrf_token %}
+    EnterCycleId:
+    <br />
+    <input type="text" name="cycleid" />
+    <br />
+    EnterLocationId:
+    <br />
+    <input type="text" name="locationid" />
+    <br />
+    <br />
+    <input class="btn btn-outline-primary" type="submit" value="Pick Cycle" />
+</form>
+
+<br />
+<br />
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">cycle id</th>
+        <th scope="col">cycle name</th>
+        <th scope="col">cycle model</th>
+        <th scope="col">owner </th>
+        <th scope="col">image </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for cycle in allcycle %}
+        <tr>
+            <td>{{ cycle.id }}</td>
+            <td>{{ cycle.CycleName }}</td>
+            <td>{{ cycle.CycleModelName }}</td>
+            <td>{{ cycle.OwnerId }}</td>
+            <td><img src="/media/{{ cycle.image }}" alt="cycle" style="width:50px; height:50px"> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Location Id</th>
+        <th scope="col">Location Name</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <th scope="row">1</th>
+        <td>Basundhara Gate</td>
+        </tr>
+        <tr>
+        <th scope="row">2</th>
+        <td>North South University</td>
+        </tr>
+        <tr>
+        <th scope="row">3</th>
+        <td>IUB</td>
+        </tr>
+        <tr>
+        <th scope="row">4</th>
+        <td>Mehedimart</td>
+        </tr>
+        <tr>
+        <th scope="row">5</th>
+        <td>Apollo Hospital</td>
+        </tr>
+        <tr>
+        <th scope="row">6</th>
+        <td>F-Block Mosjid</td>
+        </tr>
+        <tr>
+        <th scope="row">7</th>
+        <td>I-Block</td>
+        </tr>
+    </tbody>
+  </table>
+
+{% endblock %}
