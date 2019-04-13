@@ -33,7 +33,7 @@
 
 <br />
 <br />
-
+<h4>Your balance is {{balance}} & Your picked cycle:</h4>
 <table class="table">
     <thead>
     <tr>
@@ -42,16 +42,20 @@
         <th scope="col">cycle model</th>
         <th scope="col">owner </th>
         <th scope="col">image </th>
+        <th scope="col">locationid </th>
+        <th scope="col">pick date </th>
     </tr>
     </thead>
     <tbody>
         {% for cycle in allcycle %}
         <tr>
-            <td>{{ cycle.id }}</td>
-            <td>{{ cycle.CycleName }}</td>
-            <td>{{ cycle.CycleModelName }}</td>
-            <td>{{ cycle.OwnerId }}</td>
-            <td><img src="/media/{{ cycle.image }}" alt="cycle" style="width:50px; height:50px"> </td>
+            <td>{{ cycle.cycle_info.id }}</td>
+            <td>{{ cycle.cycle_info.CycleName }}</td>
+            <td>{{ cycle.cycle_info.CycleModelName }}</td>
+            <td>{{ cycle.cycle_info.OwnerId }}</td>
+            <td><img src="/media/{{ cycle.cycle_info.image }}" alt="cycle" style="width:50px; height:50px"> </td>
+            <td>{{ cycle.pick_info.locationid }}</td> 
+            <td>{{ cycle.pick_info.pick_date }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -65,34 +69,12 @@
       </tr>
     </thead>
     <tbody>
+        {% for location in locations %}
         <tr>
-        <th scope="row">1</th>
-        <td>Basundhara Gate</td>
+            <td>{{ location.LocationId }}</td>
+            <td>{{ location.LocationName }}</td>
         </tr>
-        <tr>
-        <th scope="row">2</th>
-        <td>NSU</td>
-        </tr>
-        <tr>
-        <th scope="row">3</th>
-        <td>IUB</td>
-        </tr>
-        <tr>
-        <th scope="row">4</th>
-        <td>Mehedimart</td>
-        </tr>
-        <tr>
-        <th scope="row">5</th>
-        <td>Apollo Hospital</td>
-        </tr>
-        <tr>
-        <th scope="row">6</th>
-        <td>F-Block</td>
-        </tr>
-        <tr>
-        <th scope="row">7</th>
-        <td>I-Block</td>
-        </tr>
+        {% endfor %}
     </tbody>
   </table>
 

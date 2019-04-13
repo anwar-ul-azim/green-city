@@ -10,6 +10,6 @@ class Cycle(models.Model):
     CycleModelName = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
     isPicked = models.BooleanField(default=False)
-    isDroped = models.BooleanField(default=False)
-    state = models.BooleanField(default=False)
+    # isDroped = models.BooleanField(default=False)
+    # state = models.BooleanField(default=False)
 

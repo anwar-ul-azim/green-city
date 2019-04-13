@@ -4,53 +4,48 @@ from django.conf import settings
 from cycles.models import Cycle
 from payments.models import Payment
 from .models import Pickcycle
+from locations.models import Location
+
 from django.contrib.auth.models import User
 from django.utils import timezone
 
 # Create your views here.
 
 def pickcycle(request):
-    allcycle = Cycle.objects.all()
+    error=""
     availableCycle = Cycle.objects.filter(isPicked=False)
-    print(availableCycle)
-    #allpickcycle = Pickcycle.objects.all()
-    try:
-        picked = Pickcycle.objects.get(Picker_id = request.user.id )
-        owner = Cycle.objects.get(OwnerId_id = request.user.id)
-        #cycle = Cycle.objects.get(id = request.user.id)
-        
-        cycle = Cycle.objects.filter(isPicked=True)
-        #cycle.isPicked(True)
-        print(owner)
-        print(cycle)
-        #print(picked)
- 
-    except Pickcycle.DoesNotExist:
-        picked = None
-    if(picked != None):
-        error="already picked"
-    else:
-        error="" 
-        if request.method == 'POST':
-            balance = Payment.objects.get(balanceOwner_id = request.user.id ).balance
-            if balance >= 30:
+    locations = Location.objects.all()
+    if request.method == 'POST':
+        balance = Payment.objects.get(balanceOwner_id = request.user.id ).balance
+        picked_cycle = Cycle.objects.get(id=request.POST['cycleid'])
+        if balance >= 30:
+            if picked_cycle.isPicked == False:
                 if request.POST['cycleid'] and request.POST['locationid']:
                     pickcycle = Pickcycle()
                     pickcycle.cycleid = request.POST['cycleid']
                     pickcycle.locationid = request.POST['locationid']
                     pickcycle.Picker = request.user
-                    pickcycle.pick_date = timezone.datetime.now()
                     pickcycle.save()
-    
-            message = 'Cycle Id:' + request.POST['cycleid'] + ', Location Id:' + request.POST['locationid'] #+ ', Picker Name: ' + Pickcycle.objects.get(id = request.POST['cycleid'] ).Picker.username
-            owner= Cycle.objects.get(id = request.POST['cycleid'] ).OwnerId.email
-            send_mail('Pick Cycle',
-            message,
-            settings.EMAIL_HOST_USER,
-            ['mrahman111213@gmail.com',owner],
-            fail_silently=False
-            )
+                    picked_cycle.isPicked = True 
+                    picked_cycle.save()
 
-    return render(request, 'pickcycles/pickcycle.html', {'availableCycle':availableCycle, 'error':error})
+                    message = 'Cycle Id:' + request.POST['cycleid'] + ', Location Id:' + request.POST['locationid'] 
+                    owner= Cycle.objects.get(id = request.POST['cycleid'] ).OwnerId.email
+                    send_mail(
+                        'Pick Cycle',
+                        message,
+                        settings.EMAIL_HOST_USER,
+                        ['mrahman111213@gmail.com',owner],
+                        fail_silently=False
+                    )
+                else:
+                    error = "cycleid and locationid both are required"
+            else:
+                error = "the cycle is already been picked"
+        else:
+            error = "you can not pick a cycle because of low balance minimum is 30"
+
+    return render(request, 'pickcycles/pickcycle.html', {'availableCycle':availableCycle, 'error':error,
+        'locations':locations})
 
 

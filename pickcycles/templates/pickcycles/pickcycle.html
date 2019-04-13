@@ -46,7 +46,7 @@
     </tr>
     </thead>
     <tbody>
-        {% for cycle in allcycle %}
+        {% for cycle in availableCycle %}
         <tr>
             <td>{{ cycle.id }}</td>
             <td>{{ cycle.CycleName }}</td>
@@ -66,34 +66,12 @@
       </tr>
     </thead>
     <tbody>
+        {% for location in locations %}
         <tr>
-        <th scope="row">1</th>
-        <td>Basundhara Gate</td>
+            <td>{{ location.LocationId }}</td>
+            <td>{{ location.LocationName }}</td>
         </tr>
-        <tr>
-        <th scope="row">2</th>
-        <td>North South University</td>
-        </tr>
-        <tr>
-        <th scope="row">3</th>
-        <td>IUB</td>
-        </tr>
-        <tr>
-        <th scope="row">4</th>
-        <td>Mehedimart</td>
-        </tr>
-        <tr>
-        <th scope="row">5</th>
-        <td>Apollo Hospital</td>
-        </tr>
-        <tr>
-        <th scope="row">6</th>
-        <td>F-Block Mosjid</td>
-        </tr>
-        <tr>
-        <th scope="row">7</th>
-        <td>I-Block</td>
-        </tr>
+        {% endfor %}
     </tbody>
   </table>
 
