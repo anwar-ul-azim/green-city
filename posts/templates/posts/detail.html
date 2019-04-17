@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=2028849664104473&autoLogAppEvents=1"></script>
 
 <div class="row">
     <div class="col-8">
@@ -60,6 +61,8 @@
     </div>
 </div>
 
+{% comment %} fb comment {% endcomment %}
+<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
 
 
 <div class="row">
