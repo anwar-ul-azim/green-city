@@ -1,7 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('post', views.post, name='post'),
+    path('', views.createPost, name='create'),
     path('<int:post_id>', views.detail, name='detail'),
-]
+] 

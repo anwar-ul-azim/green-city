@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from cycles.models import Cycle, Pickcycle, Dropcycle
 from payments.models import Payment
-from django.contrib.auth.models import User
 from django.utils import timezone
 
 def payment(request):

@@ -3,14 +3,10 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 from django.utils import timezone
 
-#  Create your views here.
 
-def home(request):
-    posts = Post.objects
-    return render(request, 'posts/home.html', {'posts':posts} )
 
 @login_required
-def post(request):
+def createPost(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['body'] and request.FILES['image']:
             post = Post()
