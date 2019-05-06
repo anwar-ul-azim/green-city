@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -27,26 +26,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bicyclesharing101@gmail.com'
-EMAIL_HOST_PASSWORD = 'cse499asns1sir'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
 # Application definition
-
 INSTALLED_APPS = [
-
-    'crispy_forms',
-    'payments.apps.PaymentsConfig',
-    'dropcycles.apps.DropcyclesConfig',
-    'pickcycles.apps.PickcyclesConfig',
-    'locations.apps.LocationsConfig',
-    'cycles.apps.CyclesConfig',
-    'posts.apps.PostsConfig',
-    'users.apps.UsersConfig',
+    # 'dropcycles', # delete
+    # 'locations',  # delete
+    # 'pickcycles', # delete
+    'users',
+    'cycles',
+    'payments',
+    'posts',
+    'crispy_forms',                             #used place
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,10 +74,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bicyclesharing.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -100,7 +86,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -133,20 +118,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'bicyclesharing/static/')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-
+# Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Login url config
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
-#CRISPY_TEMPLATE_PACK = 'boostrap4'
+# Email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'bicyclesharing101@gmail.com'
+EMAIL_HOST_PASSWORD = 'cse499asns1sir'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
-# *  C:\Users\mizan\Desktop\myvenv\Scripts\activate
+
+# CRISPY_TEMPLATE_PACK = 'boostrap4'
+
+# C:\Users\mizan\Desktop\myvenv\Scripts\activate

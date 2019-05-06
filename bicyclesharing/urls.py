@@ -31,8 +31,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
-    path('pickcycles/', include('pickcycles.urls')),
-    path('dropcycles/', include('dropcycles.urls')),
+    path('', include('cycles.urls')),
+    # path('dropcycles/', include('dropcycles.urls')),
     path('payments/', include('payments.urls')),
 ] 
 

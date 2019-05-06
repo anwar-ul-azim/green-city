@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from pickcycles.models import Pickcycle
-from dropcycles.models import Dropcycle
-from cycles.models import Cycle
+from cycles.models import Cycle, Pickcycle, Dropcycle
 from payments.models import Payment
 from django.contrib.auth.models import User
 from django.utils import timezone
