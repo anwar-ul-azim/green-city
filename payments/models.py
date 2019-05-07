@@ -17,5 +17,6 @@ class Transition(models.Model):
 
 class CashInOrOut(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.IntegerField(default=0)
+    cash_in = models.IntegerField(default=0)
+    cash_out = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)

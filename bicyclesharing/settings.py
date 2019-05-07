@@ -28,14 +28,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
-    # 'dropcycles', # delete
-    # 'locations',  # delete
-    # 'pickcycles', # delete
+    'ckeditor',
+    'ckeditor_uploader',
+    'phonenumber_field',
+    'widget_tweaks',
     'users',
     'cycles',
     'payments',
     'posts',
-    'crispy_forms',                             #used place
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

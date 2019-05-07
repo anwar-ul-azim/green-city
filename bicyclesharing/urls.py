@@ -18,6 +18,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+from ckeditor_uploader import views as ckviews
+from django.views.decorators.cache import never_cache
+
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -26,7 +29,10 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
     path('payments/', include('payments.urls')),
-] 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('ckeditor/upload/', ckviews.upload, name='ckeditor_upload'),
+    path('ckeditor/browse/', never_cache(ckviews.browse), name='ckeditor_browse'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+] 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
