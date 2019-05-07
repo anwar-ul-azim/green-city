@@ -132,6 +132,32 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
+# CKEDITOR CONFIGURATION
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = 'ck-uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'height': 150,               
+        'width': '100%',
+        'toolbar_Custom':[         
+            ['Styles','Format','Font','FontSize','Bold','Italic','Underline','Strike','SpellChecker','Undo','Redo'],
+            ['Link','Unlink','Anchor'],
+            [ 'NumberedList', 'BulletedList', '-',  'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Iframe','Table','HorizontalRule'],
+            ['TextColor','BGColor'],
+            ['Smiley', 'SpecialChar', 'Source'],
+        ],
+        'defaultLanguage' : 'en',
+        'language' : '',
+        'disallowedContent': 'img{width,height};',
+    },
+}
+
+# Phonenumber config
+PHONENUMBER_DEFAULT_REGION = "NATIONAL"
+
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

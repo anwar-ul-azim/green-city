@@ -10,7 +10,7 @@ def upload_image_to(instance, filename):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=timezone.now,
+    date = models.DateTimeField(auto_now=True,
                                 verbose_name="Time of Post")
     body = RichTextUploadingField()
     image = models.ImageField(upload_to=upload_image_to)

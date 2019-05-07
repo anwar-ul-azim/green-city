@@ -20,7 +20,7 @@ class Profile(models.Model):
     phone_number = PhoneNumberField()
     address = models.CharField(max_length=255, verbose_name="Present Address")
 
-    nid = models.CharField(max_length=23, verbose_name="NID", upload_to=upload_pic_to)
+    nid = models.CharField(max_length=23, verbose_name="NID")
     nid_front = models.ImageField(verbose_name="NID Front Picture", upload_to=upload_pic_to)
     nid_back = models.ImageField(verbose_name="NID Back Picture", upload_to=upload_pic_to)
     nid_selfie = models.ImageField(

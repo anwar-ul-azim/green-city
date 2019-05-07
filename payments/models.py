@@ -10,8 +10,10 @@ class Payment(models.Model):
     due = models.IntegerField(default=0)
 
 class Transition(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE)
+    sender = models.ForeignKey(
+        User, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(
+        User, related_name='receiver', on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 
