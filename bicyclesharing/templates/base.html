@@ -42,9 +42,8 @@
                 <a class="nav-link" href="{% url 'dropcycle' %}"> DROP CYCLE </a> {% endcomment %}
                 <a class="nav-item nav-link" href="{% url 'logout' %}">LOGOUT</a>
               {% else %}
-                <a class="nav-link" href="#"> FAQ </a>
-                <a class="nav-link" href="#"> ABOUT US </a>
-                <a class="nav-link" href="#"> CONTACT US </a>
+                <a class="nav-link" href="{% url 'faq' %}"> FAQ </a>
+                <a class="nav-link" href="{% url 'about' %}"> ABOUT US </a>
                 <a class="nav-item nav-link" href="{% url 'login' %}">LOGIN</a>
                 <a class="nav-item nav-link" href="{% url 'register' %}">REGISTER</a>
               {% endif %}
