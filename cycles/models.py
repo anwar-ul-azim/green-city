@@ -4,15 +4,15 @@ from django.contrib.auth.models import User
 
 
 class Cycle(models.Model):
-
-    OwnerId = models.ForeignKey(User, on_delete=models.CASCADE)
-    CycleName = models.CharField(max_length=255)
-    CycleModelName = models.CharField(max_length=255)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    model = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
     isPicked = models.BooleanField(default=False)
-    # isDroped = models.BooleanField(default=False)
-    # state = models.BooleanField(default=False)
-
+    rent = models.IntegerField()
+    rating = models.IntegerField()
+    picked = models.IntegerField()
+    
 
 class Pickcycle(models.Model):
     locationid = models.CharField(max_length=255)
@@ -29,20 +29,11 @@ class Dropcycle(models.Model):
     
 
 class Location(models.Model):
-    LocationName = models.CharField(max_length=255)
-
-    LOCATIONID_CHOICES = (
-        ("001", 'L1'),
-        ("002", 'L2'),
-        ("003", 'L3'),
-        ("004", 'L4'),
-        ("005", 'L5'),
-        ("006", 'L6'),
-        ("007", 'L7'),
-        ("008", 'L8'),
-    )
-
-    LocationId = models.CharField(max_length=255, choices=LOCATIONID_CHOICES)
-
+    area = models.CharField(max_length=255)
+    nearByF = models.CharField(max_length=255)
+    nearByS = models.CharField(max_length=255)
+    gpsLat = models.CharField(max_length=255)
+    gpsLan = models.CharField(max_length=255)
+    cycleid = models.OneToOneField(Cycle, on_delete=models.CASCADE)
 
 
