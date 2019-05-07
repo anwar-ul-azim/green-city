@@ -3,7 +3,7 @@ from cycles.models import Cycle, Pickcycle, Dropcycle
 from payments.models import Payment
 from django.utils import timezone
 
-# def payment(request):
+def payment(request):
 
 #     t1 = Pickcycle.objects.get(Picker_id = request.user.id ).pick_date
 #     # Pickcycle.objects.get(Picker_id = request.user.id ).delete()
@@ -19,5 +19,7 @@ from django.utils import timezone
 
 
 
-#     return render(request, 'payments/payment.html', {'pickcycletime':pickcycletime}, {'Balance':Balance})
+    return render(request, 'payments/payment.html'
+    # , {'pickcycletime':pickcycletime}, {'Balance':Balance}
+    )
     

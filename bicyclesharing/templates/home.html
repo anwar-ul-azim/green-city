@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% block title %}Green City{% endblock %}
 {% block content %}
-    {% for post in posts.all %}
+home -> show cycle
+{% endblock %}
+    {% comment %} {% for post in posts.all %}
         <div class="row pt-3" onclick="window.location='{% url 'detail' post.id %}';" style="cursor: pointer;" >
             <div class="col-2">
                 <img src="{{ post.image.url }}" class="img-fluid" />
@@ -10,5 +13,4 @@
                 <p>{{ post.summary }}</p>
             </div>
         </div>
-    {% endfor %}
-{% endblock %}
+    {% endfor %} {% endcomment %}

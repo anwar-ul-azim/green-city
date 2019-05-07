@@ -6,10 +6,9 @@ from payments.models import Payment
 from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
-# Create your views here.
 
 
-# def dropcycle(request):
+def dropcycle(request):
 #     error = ""
 #     cycle = []
 #     locations = Location.objects.all()
@@ -60,18 +59,18 @@ import datetime
 #         else:
 #             error = "you can not drop the cycle because of low balance"
 
-#     return render(request, 'cycles/dropcycle.html', {
+    return render(request, 'cycles/dropcycle.html'
+#       , {
 #         'allcycle': cycle,
 #         'error': error,
 #         'locations': locations,
 #         'balance': pay.balance
-#     })
+#     }
+    )
 
 
-# # Create your views here.
 
-
-# def pickcycle(request):
+def pickcycle(request):
 #     error = ""
 #     availableCycle = Cycle.objects.filter(isPicked=False)
 #     locations = Location.objects.all()
@@ -108,5 +107,7 @@ import datetime
 #         else:
 #             error = "you can not pick a cycle because of low balance minimum is 30"
 
-#     return render(request, 'cycles/pickcycle.html', {'availableCycle': availableCycle, 'error':error,
-#         'locations': locations})
+    return render(request, 'cycles/pickcycle.html'
+# , {'availableCycle': availableCycle, 'error':error,
+#         'locations': locations}
+    )
