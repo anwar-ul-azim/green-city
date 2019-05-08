@@ -23,3 +23,10 @@ def payment(request):
     # , {'pickcycletime':pickcycletime}, {'Balance':Balance}
     )
     
+
+def cash(request):
+    return render(request, 'payments/cash.html')
+
+
+def balance(request):
+    return render(request, 'payments/balance.html')
