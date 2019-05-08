@@ -1,35 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
-# Post class
 
-# title
-# url
-# pub_date
-# votes_total
-# image
-# body
-
-# pub_date_pretty
-
-# hunter
+def upload_image_to(instance, filename):
+    return 'post/post_{0}/{1}'.format(instance.pk, filename)
 
 class Post(models.Model):
-    title = models.CharField(max_length=255)
-    pub_date = models.DateTimeField()
-    body = models.TextField()
-    url = models.TextField()
-    image = models.ImageField(upload_to='images/')
-    
-    votes_total =models.IntegerField(default=1)
-    hunter = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True,
+                                verbose_name="Time of Post")
+    body = RichTextUploadingField()
+    image = models.ImageField(upload_to=upload_image_to)
 
     def __str__(self):
         return self.title
 
     def summary(self):
-        return self.body[:100]
-
-    def pub_date_pretty(self):
-        return self.pub_date.strftime('%b %e %Y')
+        return self.body[:200]

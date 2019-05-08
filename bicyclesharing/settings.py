@@ -28,21 +28,42 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
-    # 'dropcycles', # delete
-    # 'locations',  # delete
-    # 'pickcycles', # delete
+    'ckeditor',
+    'ckeditor_uploader',
+    'phonenumber_field',
+    'widget_tweaks',
     'users',
     'cycles',
     'payments',
     'posts',
-    'crispy_forms',                             #used place
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_django',                                #3rd party Apps
+
+
 ]
+
+"""
+Authentication provided for all social media login along with the default 
+user login.
+"""
+AUTHENTICATION_BACKENDS = (
+        'social_core.backends.twitter.TwitterOAuth',
+
+	    'social_core.backends.facebook.FacebookOAuth2',
+
+        'social_core.backends.google.GoogleOAuth2',
+
+	    'django.contrib.auth.backends.ModelBackend',
+
+
+
+	   )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +73,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Middleware for social media login
+
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'bicyclesharing.urls'
@@ -67,6 +93,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect',  # <--
             ],
         },
     },
@@ -131,6 +160,41 @@ MEDIA_URL = '/media/'
 # Login url config
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+# CKEDITOR CONFIGURATION
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = 'ck-uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'height': 150,               
+        'width': '100%',
+        'toolbar_Custom':[         
+            ['Styles','Format','Font','FontSize','Bold','Italic','Underline','Strike','SpellChecker','Undo','Redo'],
+            ['Link','Unlink','Anchor'],
+            [ 'NumberedList', 'BulletedList', '-',  'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Iframe','Table','HorizontalRule'],
+            ['TextColor','BGColor'],
+            ['Smiley', 'SpecialChar', 'Source'],
+        ],
+        'defaultLanguage' : 'en',
+        'language' : '',
+        'disallowedContent': 'img{width,height};',
+    },
+}
+
+# Phonenumber config
+PHONENUMBER_DEFAULT_REGION = "NATIONAL"
+
+#Social Media Integration
+
+#Goggle
+SESSION_COOKIE_SAMESITE = None
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '234164740444-9b383jhfn013q81b5l07s41afdk4q3h8.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  = 'inL-NNmXxNWI1S3CijCUNhMm'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
 
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
