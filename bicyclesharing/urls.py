@@ -5,6 +5,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from ckeditor_uploader import views as ckviews
 from django.views.decorators.cache import never_cache
+from django.conf.urls import url
 
 
 urlpatterns = [
@@ -21,6 +22,7 @@ urlpatterns = [
     path('ckeditor/upload/', ckviews.upload, name='ckeditor_upload'),
     path('ckeditor/browse/', never_cache(ckviews.browse), name='ckeditor_browse'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'oauth/', include('social_django.urls', namespace='social')),
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
