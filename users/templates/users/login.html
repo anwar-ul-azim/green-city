@@ -10,6 +10,10 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Login</button>
+                <p> </p>
+                <p> -- OR --</p>
+            <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+
             </div>
         </form>
         <div class="border-top pt-3">

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
     path('payments/', include('payments.urls')),
+    url(r'oauth/', include('social_django.urls', namespace='social')),
 ] 
 
 if settings.DEBUG:
