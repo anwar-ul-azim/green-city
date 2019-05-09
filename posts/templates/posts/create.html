@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}Create Post{% endblock %}
 {% block content %}
-
 {% if error %}
 {{error}}
 <br />
@@ -10,8 +10,8 @@
 
 <h1>Post</h1>
 
-<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
-    {% csrf_token %}
+<form method="POST" action="{% url 'createPost' %}" enctype="multipart/form-data">
+    {% csrf_token %} 
     Title:
     <br />
     <input type="text" name="title" />

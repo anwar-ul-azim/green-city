@@ -1,23 +1,9 @@
 {% extends 'base.html' %}
+{% block title %}Pick Cycle{% endblock %}
 {% block content %}
-
-
-
-
-
-
 <h1>Pick Cycle</h1>
-
-<!--<form method="POST" action="{% url 'pickcycle' %}">
-    {% csrf_token %}
-    <textarea name="message" placeholder="message...."></textarea>
-    <input type="submit" />
-</form>-->
-
-
-
 <form method="POST" action="{% url 'pickcycle' %}">
-    {% if error %}<span class="text-danger">{{  error }}</span><br>{% endif %}
+    {% if error %}<span class="text-danger">{{  error }}</span><br>{% endif %} 
         {% csrf_token %}
     EnterCycleId:
     <br />

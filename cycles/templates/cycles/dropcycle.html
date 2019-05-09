@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
-
+{% block title %}Drop Cycle{% endblock %}
 {% block content %}
-
 {% if error %}
-{{error}}
-<br />
-<br />
-
+    {{error}}   
+    <br />
+    <br />
 {% endif %}
-
 <h1>Drop Cycle</h1>
-
-<!--<form method="POST" action="{% url 'pickcycle' %}">
-    {% csrf_token %}
-    <textarea name="message" placeholder="message...."></textarea>
-    <input type="submit" />
-</form>-->
-
-<form method="POST" action="{% url 'dropcycle' %}">
+<form method="POST" action="{% url 'dropcycle' %}"> 
         {% csrf_token %}
     EnterCycleId:
     <br />
@@ -60,7 +50,6 @@
         {% endfor %}
     </tbody>
 </table>
-
 <table class="table">
     <thead>
       <tr>
@@ -77,5 +66,4 @@
         {% endfor %}
     </tbody>
   </table>
-
 {% endblock %}

@@ -24,13 +24,25 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <h3>all links </h3>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
+                <a class="nav-link" href="/admin"> admin </a>
+                <a class="nav-link" href="{% url 'home' %}"> home </a>
+                <a class="nav-link" href="{% url 'faq' %}"> FAQ </a>
+                <a class="nav-link" href="{% url 'about' %}"> ABOUT US </a>
+                <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+                <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
+                <a class="nav-link" href="{% url 'post' %}"> Post </a>
+                <a class="nav-link" href="{% url 'createPost' %}">Create Post</a>
+                <a class="nav-link" href="/posts/1">detail</a>
+                <a class="nav-link" href="{% url 'payments' %}">Payments</a>
+                <a class="nav-link" href="{% url 'balance' %}">balance</a>
+                <a class="nav-link" href="{% url 'cash' %}">cash in out</a>
+                <a class="nav-link" href="{% url 'createCycle' %}">Create cycle</a>
+                <a class="nav-link" href="{% url 'pickcycle' %}"> PICK CYCLE </a>
+                <a class="nav-link" href="{% url 'dropcycle' %}"> DROP CYCLE </a>
               </ul>
             </p>
           </div>
