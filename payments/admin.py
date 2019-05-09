@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Payment
+from .models import Payment, Transition, CashInOrOut
 
-# Register your models here.
 
 admin.site.register(Payment)
+admin.site.register(Transition)
+admin.site.register(CashInOrOut)
