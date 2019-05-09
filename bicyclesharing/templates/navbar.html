@@ -1,50 +1,72 @@
 {% load static %}
-<header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-light  fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'logo.png' %}" height=auto width=150 class="d-inline-block align-top" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                </div>
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav bg-dark">
-                    <!-- {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'profile' %}">PROFILE</a>
-                    <a class="nav-link" href="{% url 'pickcycle' %}"> PICK CYCLE </a> 
-                    <a class="nav-link" href="{% url 'dropcycle' %}"> DROP CYCLE </a> 
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">LOGOUT</a>
-                    {% else %}
-                    <a class="nav-link" href="{% url 'faq' %}"> FAQ </a>
-                    <a class="nav-link" href="{% url 'about' %}"> ABOUT US </a>
-                    <a class="nav-link" href="{% url 'post' %}"> Post </a>
-                    <a class="nav-item nav-link" href="{% url 'login' %}">LOGIN</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">REGISTER</a>
-                    {% endif %} -->
-
-                    <!-- for debug mood only -->
-                    <a class="nav-link" href="/admin">admin</a>
-                    <a class="nav-link" href="{% url 'home' %}">home</a>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'logo.png' %}" class="d-inline-block align-top" style="width: 150px; height: auto;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">ADMIN</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
-                    <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
-                    <a class="nav-link" href="{% url 'post' %}">Post</a>
-                    <a class="nav-link" href="{% url 'createPost' %}">CreatePost</a>
-                    <a class="nav-link" href="/posts/1">detail</a>
-                    <a class="nav-link" href="{% url 'payments' %}">Payments</a>
-                    <a class="nav-link" href="{% url 'balance' %}">balance</a>
-                    <a class="nav-link" href="{% url 'cash' %}">cashinout</a>
-                    <a class="nav-link" href="{% url 'createCycle' %}">Createcycle</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post' %}">POST</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'createPost' %}">CREATEPOST</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts/1">DETAILS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'payments' %}">PAYMENTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'balance' %}">BALANCE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cash' %}">CASH</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'createCycle' %}">CREATECYCLE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cycleView' %}">CYCLEVIEW</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'pickcycle' %}">PICK</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'dropcycle' %}">DROP</a>
-                </div>
-            </div>
+                </li>
+                <!-- {% if user.is_authenticated %}
+                {% else %}
+                {% endif %} -->
+            </ul>
         </div>
     </nav>
-</header>
+</div>
