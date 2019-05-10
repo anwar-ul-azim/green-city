@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
+    <h2 class="account-heading">{{ user.username }}</h2><br>
     <div class="container">
-      <h2 class="account-heading">{{ user.username }}</h2><br>
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-header">
@@ -12,6 +12,22 @@
                     <form class="text-left" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% include 'formtemplate.html' with form=form %}     
+                        <button class="btn btn-dark m-2" type='submit'>Save</button>
+                    </form>
+                </div>  
+            </div>    
+        </div>    
+    </div>
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-header">
+                    <h2>Profile Verification</h2>
+                </div>
+                <div class="card-body">
+                    <form class="text-left" action="{% url 'profileVerify' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'formtemplate.html' with form=form_v %}     
                         <button class="btn btn-dark m-2" type='submit'>Save</button>
                     </form>
                 </div>  
