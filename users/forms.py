@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Verify
 from django.forms.widgets import DateInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -26,7 +26,14 @@ class ProfileUpdateForm(forms.ModelForm):
     )
     class Meta:
         model = Profile
-        fields = ('full_name', 'father_name', 'mother_name', 'date_of_birth', 'profile_picture', 'phone_number', 'address', 'utility', 'nid', 'nid_front', 'nid_back', 'nid_selfie',)
+        fields = ('full_name', 'date_of_birth', 'profile_picture', 'phone_number', 'address',)
         widgets = {
             'date_of_birth': DateInput(attrs={'type': 'date'}),
         }
+
+
+class ProfileVerifyForm(forms.ModelForm):
+    class Meta:
+        model = Verify
+        fields = ('utility', 'nid', 'nid_front', 'nid_back', 'nid_selfie',)
+        
