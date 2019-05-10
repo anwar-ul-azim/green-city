@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from decouple import config, Csv
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,68 +21,65 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%&dd3r0#q6z6m#8_d-_wqbx81k&ttxxb&*qij_xev@o)!qdo*9'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 INSTALLED_APPS = [
-    'ckeditor',
-    'ckeditor_uploader',
-    'phonenumber_field',
-    'widget_tweaks',
+    # django apps
     'users',
     'cycles',
     'payments',
     'posts',
+    # 3rd party library
+    'social_django',           
+    'ckeditor',
+    'ckeditor_uploader',
+    'phonenumber_field',
+    'widget_tweaks',
+    # default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'social_django',                                #3rd party Apps
-
-
 ]
+
 
 """
 Authentication provided for all social media login along with the default 
 user login.
 """
-AUTHENTICATION_BACKENDS = (
-        'social_core.backends.twitter.TwitterOAuth',
+AUTHENTICATION_BACKENDS = [ 
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
-	    'social_core.backends.facebook.FacebookOAuth2',
-
-        'social_core.backends.google.GoogleOAuth2',
-
-	    'django.contrib.auth.backends.ModelBackend',
-
-
-
-	   )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     # Middleware for social media login
-
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
+
 ROOT_URLCONF = 'bicyclesharing.urls'
+
 
 TEMPLATES = [
     {
@@ -93,22 +92,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                'social_django.context_processors.backends',  # <--
-                'social_django.context_processors.login_redirect',  # <--
+                # social media config
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect', 
             ],
         },
     },
 ]
 
+
 WSGI_APPLICATION = 'bicyclesharing.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': config('DATABASE_ENGINE'),
+        'NAME': config('DATABASE_NAME'),
+        'HOST': config('DATABASE_HOST'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
     }
 }
 
@@ -136,6 +141,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES = [
+    ('bn', _('Bengali')),
+    ('en', _('English')),
+]
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -144,6 +154,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -190,21 +203,20 @@ PHONENUMBER_DEFAULT_REGION = "NATIONAL"
 #Social Media Integration
 
 #Goggle
-SESSION_COOKIE_SAMESITE = None
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '234164740444-9b383jhfn013q81b5l07s41afdk4q3h8.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  = 'inL-NNmXxNWI1S3CijCUNhMm'
-SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+SESSION_COOKIE_SAMESITE = config('SESSION_COOKIE_SAMESITE', default=None)
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_KEY', default='')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET', default='')
+SOCIAL_AUTH_RAISE_EXCEPTIONS = config(
+    'SOCIAL_AUTH_RAISE_EXCEPTIONS', default=False, cast=bool)
 
 
 # Email config
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bicyclesharing101@gmail.com'
-EMAIL_HOST_PASSWORD = 'cse499asns1sir'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-
-# CRISPY_TEMPLATE_PACK = 'boostrap4'
-
-# C:\Users\mizan\Desktop\myvenv\Scripts\activate
+EMAIL_BACKEND = config(
+    'EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST = config('EMAIL_HOST', default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)

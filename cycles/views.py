@@ -7,8 +7,14 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
 
+
 def create(request):
     return render(request, 'cycles/create.html')
+
+
+def cycleView(request):
+    return render(request, 'cycles/view.html')
+
 
 def dropcycle(request):
 #     error = ""
