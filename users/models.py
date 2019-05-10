@@ -10,8 +10,6 @@ def upload_pic_to(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
     full_name = models.CharField(max_length=50)
     father_name = models.CharField(max_length=50)
     mother_name = models.CharField(max_length=50)
@@ -26,7 +24,7 @@ class Profile(models.Model):
     nid_back = models.ImageField(verbose_name="NID Back Picture", upload_to=upload_pic_to)
     nid_selfie = models.ImageField(
         verbose_name="Selfie With Holding Your NID", upload_to=upload_pic_to)
-    utility = models.ImageField(verbose_name="NID", upload_to=upload_pic_to)
+    utility = models.ImageField(verbose_name="Utility Picture", upload_to=upload_pic_to)
 
     is_verified = models.BooleanField(default=False)
     is_email_verified = models.BooleanField(default=False)    
