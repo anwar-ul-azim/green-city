@@ -1,37 +1,93 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-    <h2 class="account-heading">{{ user.username }}</h2><br>
-    <div class="container">
-        <div class="row p-1 text-center">
-            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
-                <div class="card-header">
-                    <h2>Profile Update</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="nav flex-column nav-pills p-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Profile</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Edit Profile</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Verify Request</a>
+        </div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="container">
+                    <div class="row p-1 text-center">
+                        <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                            <div class="card-header">
+                                <h2>profile info</h2>
+                            </div>
+                            <div class="card-body text-left">
+                                <h6>Profile Picture: <br><img src="{{ profile.profile_picture.url }}" alt="profile pic" style="width:200px; height:auto;"></h6>
+                                <h6 class="account-heading">User Name: {{ user.username }}</h6>
+                                <h6 class="account-heading">Email: {{ user.email }}</h6>
+                                <h6 class="account-heading">First Name: {{ user.first_name }}</h6>
+                                <h6 class="account-heading">Last Name: {{ user.last_name }}</h6>
+                                <h6>Full Name: {{ profile.full_name }}</h6>
+                                <h6>Date Of Birth: {{ profile.date_of_birth }}</h6>
+                                <h6>Phone Number: {{ profile.phone_number }}</h6>
+                                <h6>Address: {{ profile.address }}</h6>
+                                {% if profile.is_email_verified == True %}
+                                <h6>Email is Verified</h6>
+                                {% else %}
+                                <h6>Email is Not Verified</h6>
+                                {% endif %}
+                                {% if verify.is_verify_submit == True %}
+                                <h6>Profile Verify Request Submitted</h6>
+                                {% else %}
+                                <h6>Profile Verify Request Not Submitted Yet</h6>
+                                {% endif %}
+                                {% if verify.is_verified == True %}
+                                <h6>Profile is Verified</h6>
+                                {% else %}
+                                <h6>Profile is Not Verified</h6>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form class="text-left" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'formtemplate.html' with form=form %}     
-                        <button class="btn btn-dark m-2" type='submit'>Save</button>
-                    </form>
-                </div>  
-            </div>    
-        </div>    
-    </div>
-    <div class="container">
-        <div class="row p-1 text-center">
-            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
-                <div class="card-header">
-                    <h2>Profile Verification</h2>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div class="container">
+                    <div class="row p-1 text-center">
+                        <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                            <div class="card-header">
+                                <h2>Profile Update</h2>
+                            </div>
+                            <div class="card-body">
+                                <form class="text-left" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% include 'formtemplate.html' with form=form %}
+                                    <button class="btn btn-dark m-2" type='submit'>Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form class="text-left" action="{% url 'profileVerify' %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'formtemplate.html' with form=form_v %}     
-                        <button class="btn btn-dark m-2" type='submit'>Save</button>
-                    </form>
-                </div>  
-            </div>    
-        </div>    
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <div class="container">
+                    <div class="row p-1 text-center">
+                        <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                            <div class="card-header">
+                                <h2>Profile Verification</h2>
+                            </div>
+                            <div class="card-body">
+                                {% if verify.is_verify_submit == True %}
+                                <h6>Profile Verify Request Submitted</h6>
+                                {% else %}
+                                <h6>Profile Verify Request Not Submitted Yet</h6>
+                                <form class="text-left" action="{% url 'profileVerify' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% include 'formtemplate.html' with form=form_v %}     
+                                    <button class="btn btn-dark m-2" type='submit'>Send Request</button>
+                                </form>
+                                {% endif %}
+                            </div>  
+                        </div>    
+                    </div>    
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 {% endblock content %}

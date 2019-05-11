@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from .models import Profile, Verify
 from .forms import UserRegisterForm, ProfileUpdateForm, ProfileVerifyForm
+from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.method == 'POST':
@@ -18,13 +21,18 @@ def register(request):
 
 @login_required
 def profile(request):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        profile = None
+
+    try:
+        verify = Verify.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        verify = None
+
     if request.method == 'POST':
-        try:
-            form = ProfileUpdateForm(
-                request.POST, request.FILES, instance=request.user.profile)
-        except:
-            form = ProfileUpdateForm(
-                request.POST, request.FILES)
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             data = form.save(commit=False)
             data.user = request.user
@@ -32,34 +40,27 @@ def profile(request):
             messages.success(request, f'Your account has been updated!')
             return redirect('profile')
     else:
-        try:
-            form = ProfileUpdateForm(instance=request.user.profile)
-        except:
-            form = ProfileUpdateForm()
-
-    try:
-        form_v = ProfileVerifyForm(instance=request.user.profile)
-    except:
-        form_v = ProfileVerifyForm()
-    context = {
-        'form': form,
-        'form_v': form_v
-    }
-    return render(request, 'users/profile.html', context)
+        context = {
+            'profile': profile,
+            'verify' : verify,
+            'form'   : ProfileUpdateForm(instance=profile),
+            'form_v' : ProfileVerifyForm(instance=verify)
+        }
+        return render(request, 'users/profile.html', context)
 
 
 @login_required
 def profileVerify(request):
     if request.method == 'POST':
         try:
-            form = ProfileVerifyForm(
-                request.POST, request.FILES, instance=request.user.profile)
-        except:
-            form = ProfileVerifyForm(
-                request.POST, request.FILES)
+            verify = Verify.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            verify = None
+        form = ProfileVerifyForm(request.POST, request.FILES,  instance=verify)
         if form.is_valid():
             data = form.save(commit=False)
-            data.profile = request.user.profile
+            data.user = request.user
+            data.is_verify_submit = True
             data.save()
             messages.success(request, f'Your account has been updated!')
             return redirect('profile')

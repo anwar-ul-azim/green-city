@@ -30,7 +30,7 @@ class Profile(models.Model):
             img.save(self.profile_picture.path)
 
 class Verify(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     nid = models.CharField(max_length=23, verbose_name="NID")
     nid_front = models.ImageField(
         verbose_name="NID Front Picture", upload_to=upload_pic_to)
