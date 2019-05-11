@@ -3,99 +3,22 @@
 {% block content %}
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=2028849664104473&autoLogAppEvents=1"></script>
-
-<div class="row">
-    <div class="col-8">
-        <a </a><h1>{{ post.title }}</h1> </a>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-4">
-        <h4>Posted by {{ post.hunter.username }}</h4>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8">
-        <hr>        
-    </div>
-</div>
-
-
-<div class="row">    
-    <div class="col-4">
-        <h4>{{ post.pub_date_pretty }}</h4>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8">
-        <hr>        
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8">
-        <img src="{{ post.image.url }}" class="img-fluid"/>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-8">
-        <hr>        
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8">
-        <p>{{ post.body }}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8">
-        <hr>        
-    </div>
-</div>
-
-{% comment %} fb comment {% endcomment %}
-<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
-
-
-<div class="row">
-    <div class="col-8">
-        <!-- Comments Form -->
-        <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-                <div class="card-body">
-                  <form>
-                    <div class="form-group">
-                      <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card  mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-header">
+                    <h2> {{ post.title }} </h2>
                 </div>
-        </div>
+                <div class="card-body text-left">
+                    <h1 class="text-center"><img src="{{ post.image.url }}" class="img-fluid"/></h1>
+                    <h5>Posted by {{ post.author.username }}, on {{ post.date }}</h5><hr>
+                    <p>{{ post.body | safe }}</p>
+                    <!-- fb comment -->
+                    <div class="fb-comments m-5" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+                </div>  
+            </div>    
+        </div>    
     </div>
-</div>
-
-<div class="row">
-        <div class="col-8">
-                <!-- Single Comment -->
-          <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                  <h5 class="mt-0">Commenter Name</h5>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-    </div>
-</div>
-
-
-
 {% endblock %}
 
 

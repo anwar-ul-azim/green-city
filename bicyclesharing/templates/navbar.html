@@ -1,6 +1,6 @@
 {% load static %}
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'logo.png' %}" class="d-inline-block align-top" style="width: 150px; height: auto;" />
         </a>
@@ -21,9 +21,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'createPost' %}">CREATEPOST</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts/1">DETAILS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'payments' %}">PAYMENTS</a>
