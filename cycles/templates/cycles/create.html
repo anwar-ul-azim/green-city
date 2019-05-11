@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
-{% block title %}Green City | create{% endblock %}
+{% block title %}Green City | Add Cycle{% endblock %}
 {% block content %}
-<h1>add new cycle</h1>
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-header">
+                    <h2>Add New Cycle</h2>
+                </div>
+                <div class="card-body">
+                    <form class="text-left" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'formtemplate.html' with form=form %}     
+                        <button class="btn btn-dark m-2" type='submit'>Add Cycle</button>
+                    </form>
+                </div>  
+            </div>    
+        </div>    
+    </div>    
 {% endblock %}

@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from .models import Post
 from .forms import NewPostForm
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 
 @login_required
@@ -13,6 +14,8 @@ def createPost(request):
             new_post = new_post.save(commit=False)
             new_post.author = request.user
             new_post.save()
+            messages.success(
+                request, f'new post created!')
         return redirect('post')
     else:
         content = {'form': NewPostForm()}

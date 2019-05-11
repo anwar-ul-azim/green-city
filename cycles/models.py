@@ -1,18 +1,18 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
 def upload_image_to(instance, filename):
-    return 'cycle/cycle_{0}/{1}'.format(instance.pk, filename)
+    return 'cycle/cycle_{0}/{1}'.format(instance.owner, filename)
 
 class Cycle(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     model = models.CharField(max_length=30)
     image = models.ImageField(upload_to=upload_image_to)
-    is_picked = models.BooleanField(default=False)
     rent = models.IntegerField(default=0)
+    is_picked = models.BooleanField(default=False)
     rating = models.IntegerField(default=0)
     picked_times = models.IntegerField(default=0)
     

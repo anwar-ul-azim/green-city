@@ -2,4 +2,12 @@
 {% block title %}Green City | cycle details{% endblock %}
 {% block content %}
 cycle details view
+<ul>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'pickcycle' %}">PICK</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dropcycle' %}">DROP</a>
+    </li>
+</ul>
 {% endblock %}
