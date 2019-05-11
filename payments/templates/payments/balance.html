@@ -2,4 +2,12 @@
 {% block title %}Green City | balance{% endblock %}
 {% block content %}
 <h1>balance page</h1>
+<ul>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'payments' %}">PAYMENTS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'cash' %}">CASH</a>
+    </li>
+</ul>
 {% endblock %}

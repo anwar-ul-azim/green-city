@@ -11,37 +11,16 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'post' %}">POST</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'createPost' %}">CREATEPOST</a>
+                        <a class="nav-link" href="{% url 'balance' %}">Balance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'payments' %}">PAYMENTS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'balance' %}">BALANCE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cash' %}">CASH</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'createCycle' %}">CREATECYCLE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cycleView' %}">CYCLEVIEW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pickcycle' %}">PICK</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dropcycle' %}">DROP</a>
+                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
                     </li>
                 {% else %}
                     <li class="nav-item">

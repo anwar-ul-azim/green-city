@@ -62,5 +62,5 @@ def profileVerify(request):
             data.user = request.user
             data.is_verify_submit = True
             data.save()
-            messages.success(request, f'Your account has been updated!')
+            messages.success(request, f'Your account verification request has been submitted!')
             return redirect('profile')

@@ -1,21 +1,36 @@
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from cycles.models import Cycle, Location, Pickcycle, Dropcycle
 from payments.models import Payment
 from django.contrib.auth.models import User
+from .forms import NewCycleForm
+from django.core.mail import send_mail
+from django.conf import settings
 from django.utils import timezone
-import datetime
+from django.contrib import messages
 
 
+@login_required
 def create(request):
-    return render(request, 'cycles/create.html')
+    if request.method == 'POST':
+        new_cycle = NewCycleForm(request.POST, request.FILES)
+        if new_cycle.is_valid():
+            new_cycle = new_cycle.save(commit=False)
+            new_cycle.owner = request.user
+            new_cycle.save()
+            messages.success(request, f'new cycle created!')
+        return redirect('profile')
+    else:
+        content = {'form': NewCycleForm()}
+        return render(request, 'cycles/create.html', content)
 
 
-def cycleView(request):
+@login_required
+def cycleView(request, id):
     return render(request, 'cycles/view.html')
 
 
+@login_required
 def dropcycle(request):
 #     error = ""
 #     cycle = []
@@ -77,7 +92,7 @@ def dropcycle(request):
     )
 
 
-
+@login_required
 def pickcycle(request):
 #     error = ""
 #     availableCycle = Cycle.objects.filter(isPicked=False)
