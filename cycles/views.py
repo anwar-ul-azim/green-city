@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from cycles.models import Cycle, Location, Pickcycle, Dropcycle
 from payments.models import Payment
 from django.contrib.auth.models import User
-from .forms import NewCycleForm
+from .forms import NewCycleForm, LocationForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
@@ -27,7 +28,32 @@ def create(request):
 
 @login_required
 def cycleView(request, id):
-    return render(request, 'cycles/view.html')
+    try:
+        cycle = Cycle.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        cycle = None
+    try:
+        location = Location.objects.get(cycle_id=cycle)
+    except ObjectDoesNotExist:
+        location = None
+    if request.method == 'POST':
+        new_location = LocationForm(request.POST, instance=location)
+        if new_location.is_valid():
+            new_location = new_location.save(commit=False)
+            new_location.cycle_id = cycle
+            new_location.save()
+            messages.success(request, f'New Location Updated!')
+        return redirect(request.path)
+    if cycle.owner == request.user:
+        form = LocationForm(instance=location)
+    else:
+        form = None
+    content = {
+        'cycle': cycle,
+        'location': location,
+        'form': form
+        }
+    return render(request, 'cycles/view.html', content)
 
 
 @login_required
