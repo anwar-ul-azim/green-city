@@ -1,5 +1,7 @@
 from django.contrib import messages
 from .models import Profile, Verify
+from posts.models import Post
+from cycles.models import Cycle
 from .forms import UserRegisterForm, ProfileUpdateForm, ProfileVerifyForm
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -30,6 +32,9 @@ def profile(request):
         verify = Verify.objects.get(user=request.user)
     except ObjectDoesNotExist:
         verify = None
+    
+    my_cycles = Cycle.objects.filter(owner=request.user)
+    my_posts = Post.objects.filter(author=request.user)
 
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
@@ -41,10 +46,12 @@ def profile(request):
             return redirect('profile')
     else:
         context = {
-            'profile': profile,
-            'verify' : verify,
-            'form'   : ProfileUpdateForm(instance=profile),
-            'form_v' : ProfileVerifyForm(instance=verify)
+            'profile'  : profile,
+            'verify'   : verify,
+            'form'     : ProfileUpdateForm(instance=profile),
+            'form_v'   : ProfileVerifyForm(instance=verify),
+            'my_cycles': my_cycles,
+            'my_posts' : my_posts
         }
         return render(request, 'users/profile.html', context)
 
