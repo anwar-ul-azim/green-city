@@ -15,26 +15,26 @@ class Cycle(models.Model):
     is_picked = models.BooleanField(default=False)
     rating = models.IntegerField(default=0)
     picked_times = models.IntegerField(default=0)
+    pick_id = models.IntegerField(default=0)
     
 
 class Pickcycle(models.Model):
     cycle_id = models.ForeignKey(Cycle, on_delete=models.CASCADE)
     picked_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    pick_date = models.DateTimeField(auto_now = True)
+    pick_date = models.DateTimeField(default=timezone.now)
 
 
 class Dropcycle(models.Model):
-    cycle_id = models.ForeignKey(Cycle, on_delete=models.CASCADE)
-    drop_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    drop_date = models.DateTimeField(auto_now = True)
+    pick_id = models.ForeignKey(Pickcycle, null=True, on_delete=models.CASCADE)
+    drop_date = models.DateTimeField(default=timezone.now)
     
 
 class Location(models.Model):
     area = models.CharField(max_length=30)
-    near_by = models.CharField(max_length=30)
-    near_by_t = models.CharField(max_length=30)
-    gps_lat = models.CharField(max_length=30)
-    gps_lon = models.CharField(max_length=30)
+    near_by = models.CharField(max_length=30, blank=True, verbose_name="2nd area")
+    near_by_t = models.CharField(max_length=30, blank=True, verbose_name="3rd area")
+    gps_lat = models.CharField(max_length=30, blank=True, verbose_name="Latitude")
+    gps_lon = models.CharField(max_length=30, blank=True, verbose_name="Longitude")
     cycle_id = models.OneToOneField(Cycle, on_delete=models.CASCADE)
 
 

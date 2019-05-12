@@ -53,9 +53,17 @@
                             <hr>
                             <h6 class="text-center">
                                 {% if cycle.is_picked == True %}
-                                <a class="btn btn-primary" href="{% url 'dropcycle' %}">DROP</a>
+                                <form class="text-left" method="POST" action="/cycles/dropcycle/{{cycle.id}}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% include 'formtemplate.html' with form=form_d %}
+                                        <button class="btn btn-primary" type='submit'>DROP</button>
+                                </form>
                                 {% else %}
-                                <a class="btn btn-primary" href="{% url 'pickcycle' %}">PICK</a>
+                                <form class="text-left" method="POST" action="/cycles/pickcycle/{{cycle.id}}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% include 'formtemplate.html' with form=form_p %}
+                                        <button class="btn btn-primary" type='submit'>PICK</button>
+                                </form>
                                 {% endif %}
                             </h6>
                         </div>
