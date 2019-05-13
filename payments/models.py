@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
-# Create your models here.
 
 class Payment(models.Model):
-    balanceOwner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     balance = models.IntegerField(default=0)
     earned = models.IntegerField(default=0)
     due = models.IntegerField(default=0)
@@ -15,10 +15,10 @@ class Transition(models.Model):
     receiver = models.ForeignKey(
         User, related_name='receiver', on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(default=timezone.now)
 
 class CashInOrOut(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE)
-    cash_in = models.IntegerField(default=0)
-    cash_out = models.IntegerField(default=0)
-    date = models.DateTimeField(auto_now=True)
+    cash_in = models.IntegerField(default=0, blank=True)
+    cash_out = models.IntegerField(default=0, blank=True)
+    date = models.DateTimeField(default=timezone.now)
