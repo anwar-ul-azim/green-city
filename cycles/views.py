@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from cycles.models import Cycle, Location, Pickcycle, Dropcycle
-from payments.models import Payment
-from django.contrib.auth.models import User
 from .forms import NewCycleForm, LocationForm, PickForm, DropForm
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from payments.models import Payment
 from django.conf import settings
 from django.utils import timezone
 from django.contrib import messages
