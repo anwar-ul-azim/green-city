@@ -1,9 +1,9 @@
 from django.shortcuts import render
-# from posts.models import Post
+from cycles.models import Cycle
 
 def home(request):
-    posts = ""
-    return render(request, 'home.html', {'posts':posts} )
+    content = {'cycles': Cycle.objects.all()}
+    return render(request, 'home.html', content)
 
 
 def faq(request):

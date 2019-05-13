@@ -1,6 +1,6 @@
 {% load static %}
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'logo.png' %}" class="d-inline-block align-top" style="width: 150px; height: auto;" />
         </a>
@@ -11,47 +11,20 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'post' %}">POST</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'createPost' %}">CREATEPOST</a>
+                        <a class="nav-link" href="{% url 'balance' %}">Balance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/posts/1">DETAILS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'payments' %}">PAYMENTS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'balance' %}">BALANCE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cash' %}">CASH</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'createCycle' %}">CREATECYCLE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cycleView' %}">CYCLEVIEW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pickcycle' %}">PICK</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dropcycle' %}">DROP</a>
+                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">ADMIN</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
@@ -63,7 +36,7 @@
                         <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                        <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
                     </li>
                 {% endif %}
             </ul>

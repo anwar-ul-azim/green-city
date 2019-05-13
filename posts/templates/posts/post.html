@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Green City | Post{% endblock %}
 {% block content %}
-post -> show post
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card  mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-header">
+                    <h2> Posts </h2>
+                </div>
+                <div class="card-body text-left">
+                    {% for post in posts %}
+                        <a href="{{post.id}}" class="nav-link">
+                            <h5  class="text-dark"> {{post.title}} <br> </h5>
+                            <img src="{{post.image.url}}" alt="post picture" style="width:30%; height:auto;"> <br>
+                        </a> 
+                        <p class="text-muted">
+                            by {{post.author}}, on 
+                            {{post.date}}
+                            {{post.summary | safe}}
+                        </p><hr>
+                    {% endfor %}    
+                </div>  
+            </div>    
+        </div>    
+    </div>    
 {% endblock %}

@@ -22,12 +22,26 @@
                 <div class="card-body">
                     <h2>Cycles</h2>
                     <div class="border-top pt-3">
-                        <small class="text-muted">
-                            <p>all cycles</p>
-                        </small>
+                        {% for cycle in cycles %}
+                        <a href="cycles/{{cycle.id}}" class="nav-link text-left text-dark">
+                        <div class="row">
+                            <div class="col-sm-4 pt-3"><h6>
+                                Cycle: {{cycle.name}} <hr>
+                                Model: {{cycle.model}}
+                            </h6></div>
+                            <div class="col-sm-4 pt-3"><h6>
+                                Rent: {{cycle.rent}} BDT <hr>
+                                Owner: {{cycle.owner}}
+                            </h6></div>
+                            <div class="col-sm-4 text-center">
+                                <img src="{{cycle.image.url}}" alt="cycle picture" style="width:50%; height:auto;">
+                            </div>
+                        </div>
+                        </a> <hr>
+                    {% endfor %}    
                     </div>
                 </div>  
             </div>    
         </div>    
-    </div>
+    </div>                
 {% endblock %}

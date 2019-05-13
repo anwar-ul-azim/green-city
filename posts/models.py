@@ -5,13 +5,12 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 def upload_image_to(instance, filename):
-    return 'post/post_{0}/{1}'.format(instance.pk, filename)
+    return 'post/post_{0}/{1}'.format(instance.title, filename)
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True,
-                                verbose_name="Time of Post")
+    date = models.DateTimeField(default=timezone.now)
     body = RichTextUploadingField()
     image = models.ImageField(upload_to=upload_image_to)
 
