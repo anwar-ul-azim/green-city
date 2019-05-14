@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Green City{% endblock %}
+{% load i18n %}
 {% block content %}
     <div class="container">
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-body">
-                    <h2>Home</h2>
+                    <h2> {% trans "Home" %}</h2>
                     <div class="border-top pt-3">
                         <small class="text-muted">
-                            <a href="{% url 'login' %}">sign in </a> | or
-                            <a href="{% url 'register' %}">sign Up </a>
+                            <a href="{% url 'login' %}">{% trans "Sign In" %} </a> |
+                            <a href="{% url 'register' %}">{% trans "Sign Up"%} </a>
                         </small>
                     </div>
                 </div>  
@@ -20,7 +21,7 @@
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-body">
-                    <h2>Cycles</h2>
+                    <h2>{% trans "Cycles" %}</h2>
                     <div class="border-top pt-3">
                         {% for cycle in cycles %}
                         <a href="cycles/{{cycle.id}}" class="nav-link text-left text-dark">

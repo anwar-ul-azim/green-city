@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="{% url 'home' %}">
@@ -11,32 +12,29 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
+                        <a class="nav-link" href="{% url 'profile' %}"> {% trans "Profile" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'post' %}">POST</a>
+                        <a class="nav-link" href="{% url 'post' %}"> {% trans "Post" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'balance' %}">Balance</a>
+                        <a class="nav-link" href="{% url 'balance' %}">{% trans "Balance" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">HOME</a>
+                        <a class="nav-link" href="{% url 'home' %}">{% trans "Home" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+                        <a class="nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        <a class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                        <a class="nav-link" href="{% url 'register' %}">{% trans "Register" %}</a>
                     </li>
                 {% endif %}
             </ul>

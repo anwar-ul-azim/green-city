@@ -3,7 +3,6 @@ from .models import Profile, Verify
 from django.forms.widgets import DateInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.utils.translation import gettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
@@ -19,8 +18,8 @@ class UserRegisterForm(UserCreationForm):
 class ProfileUpdateForm(forms.ModelForm):
     phone_number = PhoneNumberField(
         widget=PhoneNumberPrefixWidget(
-            attrs={'placeholder': _('Phone Number'), 'class': "form-control"}),
-        label=_('Phone Number'),
+            attrs={'placeholder': 'Phone Number', 'class': "form-control"}),
+        label='Phone Number',
         required=True,
         initial='+880'
     )

@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Green City | About{% endblock %}
+{% load i18n %}
 {% block content %}
     <div class="container">
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-body">
-                    <h2>About Us</h2>
+                    <h2>{% trans "About Us" %}</h2>
                     <div class="border-top pt-3">
                         <small class="text-muted">
-                            <a href="{% url 'home' %}">Home </a>
+                            <a href="{% url 'home' %}">{% trans "Home" %}</a>
                         </small>
                     </div>
                 </div>  

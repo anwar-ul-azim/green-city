@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+{% load i18n %}
 {% block content %}
     <div class="container">
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-header">
-                    <h2>Log In</h2>
+                    <h2> {% trans "Log In" %}</h2>
                 </div>
                 <div class="card-body">
                     <form class="text-left" method="POST" enctype="multipart/form-data">
@@ -15,7 +16,7 @@
                         <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
                         <div class="border-top pt-3">
                             <small class="text-muted">
-                                |  Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                                | {% trans "Need An Account?" %}  <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
                             </small>
                         </div>
                     </form>

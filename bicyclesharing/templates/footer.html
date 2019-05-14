@@ -1,20 +1,37 @@
 <!-- Footer -->
+{% load static %}
+{% load i18n %}
 <footer class="container-fluid bg-primary text-dark">
     <div class="container pt-5 mt-3">
         <div class="row">
-            <div class="col-md-4">
-                <p>phone</p>
-                <p>email</p>
-                <p>address</p>
+            <div class="col-md-6">
+                <p align="center" >{% trans "phone" %}</p>
+                <p align="center">{% trans "email" %}</p>
+                <p align="center">{% trans "address" %}</p>
             </div>
-            <div class="col-md-4">
-                <p>facebook</p>
-                <p>instagram</p>
-                <p>twitter</p>
+            <div class="col-md-6">
+                <p align="center" \>{% trans "facebook" %}</p>
+                <p align="center">{% trans "instagram" %}</p>
+                <p align="center">{% trans "twitter" %}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
+                {% get_current_language as LANGUAGE_CODE %}
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input type="hidden" name="text" value="{{ redirect_to}}">
+                <select name="language" id="">
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages%}
+                        <option value="{{ language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                            {{ language.name_local}} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go">
+                </form>
+                <p> <a href="{% url 'faq' %}" style="color:black;">FAQ</a> </p>
                 <p> &copy; 2018 - {% now "Y" %} BicycleSharing </p>
                 <p> All Rights Reserved | supported@bicyclesharing.com </p>
             </div>
