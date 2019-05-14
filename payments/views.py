@@ -3,6 +3,7 @@ from cycles.models import Cycle, Pickcycle, Dropcycle
 from payments.models import Payment, Transition, CashInOrOut
 from django.contrib.auth.decorators import login_required
 from .forms import CashForm, TransitionForm
+from cycles.views import dropcycle
 from django.utils import timezone
 from django.contrib import messages
 from datetime import datetime
@@ -45,12 +46,10 @@ def getHiredCycle(user):
 @login_required
 def balance(request):
     balance, created = Payment.objects.get_or_create(owner=request.user)
-
     if created:
         balance.balance = 100
         balance.save()
         messages.success(request, f'You Got 100 BDT SignUp Bonus!!')
-
     cycles_r = getRentedCycles(request.user)
     cycles_h = getHiredCycle(request.user)
     balance.earned = getFair(cycles_r)
@@ -58,7 +57,6 @@ def balance(request):
         balance.earned = 0
     balance.due = getFair(cycles_h)
     balance.save()
-
     cash = CashForm()
     cash.fields["client"].initial = request.user
     transition = TransitionForm()
@@ -67,19 +65,23 @@ def balance(request):
     for cycle_obj in cycles_h:
         receiver = cycle_obj['cycle'].owner
     transition.fields["receiver"].initial = receiver
-
+    transition.fields["amount"].initial = balance.due
+    drop_btn = True
+    if balance.due >= balance.balance:
+        drop_btn = False
     content = {
         'balance': balance,
         'form_c': cash,
         'form_t': transition,
         'cycles_r': cycles_r,
-        'cycles_h': cycles_h
+        'cycles_h': cycles_h,
+        'drop_btn': drop_btn
     }
     return render(request, 'payments/balance.html', content)
 
 
 @login_required
-def transition(request):
+def transition(request, id):
     if request.method == 'POST':
         transition = TransitionForm(request.POST)
         if transition.is_valid():
@@ -95,6 +97,7 @@ def transition(request):
                 balance_receiver.earned -= transition.amount
                 balance_receiver.save()
                 transition.save()
+                dropcycle(id)
                 messages.success(request, f'Transition Successful!!')
             else:
                 messages.success(request, f'Transition Failed!!')

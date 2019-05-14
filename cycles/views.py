@@ -51,41 +51,24 @@ def cycleView(request, id):
     pick = PickForm()
     pick.fields["cycle_id"].initial = cycle
     pick.fields["picked_by"].initial = request.user
-    drop = DropForm()
-    try:
-        drop.fields["pick_id"].initial = Pickcycle.objects.get(
-            pk=cycle.pick_id)
-    except ObjectDoesNotExist:
-        pass
-    drop_btn = True
-    if cycle.is_picked == True:
-        pick_obj = Pickcycle.objects.get(id=cycle.pick_id)
-        balance = Payment.objects.get(owner=pick_obj.picked_by)
-        if balance.due > 0:
-            drop_btn = False
-            drop = None
+    
     content = {
         'cycle'   : cycle,
         'location': location,
         'form'    : form,
-        'form_p'  : pick,
-        'form_d'  : drop,
-        'drop_btn': drop_btn
+        'form_p'  : pick
         }
     return render(request, 'cycles/view.html', content)
 
 
-@login_required
-def dropcycle(request, id):
-    if request.method == 'POST':
-        drop = DropForm(request.POST)
-        if drop.is_valid():
-            drop.save()
-            cycle = Cycle.objects.get(id=id)
-            cycle.is_picked = False
-            cycle.pick_id = 0
-            cycle.save()
-            return redirect('/cycles/' + str(id))
+def dropcycle(id):
+    cycle = Cycle.objects.get(id=id)
+    pick_obj = Pickcycle.objects.get(id=cycle.pick_id)
+    cycle.is_picked = False
+    cycle.pick_id = 0
+    cycle.save()
+    drop, created = Dropcycle.objects.get_or_create(pick_id=pick_obj)
+    drop.save()
 
 
 @login_required
