@@ -57,12 +57,20 @@ def cycleView(request, id):
             pk=cycle.pick_id)
     except ObjectDoesNotExist:
         pass
+    drop_btn = True
+    if cycle.is_picked == True:
+        pick_obj = Pickcycle.objects.get(id=cycle.pick_id)
+        balance = Payment.objects.get(owner=pick_obj.picked_by)
+        if balance.due > 0:
+            drop_btn = False
+            drop = None
     content = {
         'cycle'   : cycle,
         'location': location,
         'form'    : form,
         'form_p'  : pick,
-        'form_d'  : drop
+        'form_d'  : drop,
+        'drop_btn': drop_btn
         }
     return render(request, 'cycles/view.html', content)
 

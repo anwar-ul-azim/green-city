@@ -25,6 +25,42 @@
             </div>    
         </div>    
     </div>
+    {% if cycles_r %}
+        <div class="container">
+            <div class="row p-1 text-center">
+                <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                    <div class="card-header">
+                        <h2>My Rent Out Cycles</h2>
+                    </div>
+                    <div class="card-body text-left">
+                        {% for cycle in cycles_r %}
+                            <a href="/cycles/{{cycle.cycle.id}}">{{cycle.cycle.name}}, Model {{cycle.cycle.model}}</a>
+                            <h6>Picked by {{cycle.pick.picked_by}} on {{cycle.pick.pick_date}}</h6> 
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if cycles_h %}
+        <div class="container">
+            <div class="row p-1 text-center">
+                <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                    <div class="card-header">
+                        <h2>My Hired Cycles</h2>
+                    </div>
+                    <div class="card-body text-left">
+                        {% for cycle in cycles_h %}
+                            <a href="/cycles/{{cycle.cycle.id}}">{{cycle.cycle.name}}, Model: {{cycle.cycle.model}}</a> 
+                            <h6>Owner: {{cycle.cycle.owner}}, Picked on {{cycle.pick.pick_date}}</h6> 
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <!-- Cash Modal -->
     <div class="modal fade" id="cashmodal" tabindex="-1" role="dialog" aria-labelledby="cashmodalTitle"
         aria-hidden="true">
