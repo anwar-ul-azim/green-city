@@ -68,8 +68,8 @@ by paying the **due**.
 You can use our service from any modern web browser or download our native app 
 from app-store to use it on an android or ios device.
 
-[web](#)
-[android](#)
+[web](#) | |
+[android](#) | |
 [ios](#)
 
 ### About Us
@@ -84,15 +84,15 @@ we are capable of doing something that is unique, challenging and experience of 
 #### For web application
 * install python 3.* 32bit
 * [clone the repository](https://github.com/anwar-ul-azim/green-city.git)
-$ `cd green-city`
-$ `pip install -r requirements.txt`
-$ `python manage.py migrate`  **create db tables**
-$ `python manage.py runserver`  **create dev server @localhost:8000/**
+* $ `cd green-city`
+* $ `pip install -r requirements.txt`
+* $ `python manage.py migrate`  **create db tables**
+* $ `python manage.py runserver`  **create dev server @localhost:8000/**
 
 *optional*
-$ `python manage.py makemigrations`  **state db changes**
-$ `python manage.py collectstatic`  **create static folders**
-$ `python manage.py createsuperuser`  **create super user**
+* $ `python manage.py makemigrations`  **state db changes**
+* $ `python manage.py collectstatic`  **create static folders**
+* $ `python manage.py createsuperuser`  **create super user**
     
 
 ### Config  
