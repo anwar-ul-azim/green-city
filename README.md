@@ -68,9 +68,9 @@ by paying the **due**.
 You can use our service from any modern web browser or download our native app 
 from app-store to use it on an android or ios device.
 
-    * [web](#)
-    * [android](#)
-    * [ios](#)
+[web](#)
+[android](#)
+[ios](#)
 
 ### About Us
 
@@ -82,17 +82,17 @@ we are capable of doing something that is unique, challenging and experience of 
 
 ***
 #### For web application
-    * install python 3.* 32bit
-    * [clone the repository](https://github.com/anwar-ul-azim/green-city.git)
-    * $ `cd green-city`
-    * $ `pip install -r requirements.txt`
-    * $ `python manage.py migrate`  **create db tables**
-    * $ `python manage.py runserver`  **create dev server @localhost:8000/**
+* install python 3.* 32bit
+* [clone the repository](https://github.com/anwar-ul-azim/green-city.git)
+$ `cd green-city`
+$ `pip install -r requirements.txt`
+$ `python manage.py migrate`  **create db tables**
+$ `python manage.py runserver`  **create dev server @localhost:8000/**
 
-    *optional*
-    * $ `python manage.py makemigrations`  **state db changes**
-    * $ `python manage.py collectstatic`  **create static folders**
-    * $ `python manage.py createsuperuser`  **create super user**
+*optional*
+$ `python manage.py makemigrations`  **state db changes**
+$ `python manage.py collectstatic`  **create static folders**
+$ `python manage.py createsuperuser`  **create super user**
     
 
 ### Config  
@@ -113,22 +113,23 @@ we are capable of doing something that is unique, challenging and experience of 
         an issue by mentioning the issue.
 
 
-#### License
+### License
 
 ***
 **Green-city is an open source project. Anyone can copy, modify and distribute it.**
 
-#### Links  
+
+### Links  
 
 ***
-[Term & Policy](#)
-[django rest](https://www.django-rest-framework.org/)
-[django](https://www.djangoproject.com/)
-[react native](https://facebook.github.io/react-native/)
-[bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
-[bootswatch](https://bootswatch.com/)
-[google fonts](https://fonts.google.com/)
-[font awesome](https://fontawesome.com/)
+[Term & Policy](#) | |
+[django rest](https://www.django-rest-framework.org/) | |
+[django](https://www.djangoproject.com/) | |
+[react native](https://facebook.github.io/react-native/) | |
+[bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/) | |
+[bootswatch](https://bootswatch.com/) | |
+[google fonts](https://fonts.google.com/) | |
+[font awesome](https://fontawesome.com/) | |
 
 
 
