@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
 {% block title %}Green City{% endblock %}
 {% block content %}
-home -> show cycle
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-body">
+                    <h2>Home</h2>
+                    <div class="border-top pt-3">
+                        <small class="text-muted">
+                            <a href="{% url 'login' %}">sign in </a> | or
+                            <a href="{% url 'register' %}">sign Up </a>
+                        </small>
+                    </div>
+                </div>  
+            </div>    
+        </div>    
+    </div>
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-body">
+                    <h2>Cycles</h2>
+                    <div class="border-top pt-3">
+                        {% for cycle in cycles %}
+                        <a href="cycles/{{cycle.id}}" class="nav-link text-left text-dark">
+                        <div class="row">
+                            <div class="col-sm-4 pt-3"><h6>
+                                Cycle: {{cycle.name}} <hr>
+                                Model: {{cycle.model}}
+                            </h6></div>
+                            <div class="col-sm-4 pt-3"><h6>
+                                Rent: {{cycle.rent}} BDT <hr>
+                                Owner: {{cycle.owner}}
+                            </h6></div>
+                            <div class="col-sm-4 text-center">
+                                <img src="{{cycle.image.url}}" alt="cycle picture" style="width:50%; height:auto;">
+                            </div>
+                        </div>
+                        </a> <hr>
+                    {% endfor %}    
+                    </div>
+                </div>  
+            </div>    
+        </div>    
+    </div>                
 {% endblock %}
-    {% comment %} {% for post in posts.all %}
-        <div class="row pt-3" onclick="window.location='{% url 'detail' post.id %}';" style="cursor: pointer;" >
-            <div class="col-2">
-                <img src="{{ post.image.url }}" class="img-fluid" />
-            </div>
-            <div class="col-6">
-                <h1>{{ post.title }}</h1>
-                <p>{{ post.summary }}</p>
-            </div>
-        </div>
-    {% endfor %} {% endcomment %}
