@@ -52,18 +52,12 @@
                             </h6>
                             <hr>
                             <h6 class="text-center">
-                                {% if cycle.is_picked == True %}
-                                <form class="text-left" method="POST" action="/cycles/dropcycle/{{cycle.id}}" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        {% include 'formtemplate.html' with form=form_d %}
-                                        <button class="btn btn-primary" type='submit'>DROP</button>
-                                </form>
-                                {% else %}
-                                <form class="text-left" method="POST" action="/cycles/pickcycle/{{cycle.id}}" enctype="multipart/form-data">
+                                {% if cycle.is_picked == False %}
+                                    <form class="text-left" method="POST" action="/cycles/pickcycle/{{cycle.id}}" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {% include 'formtemplate.html' with form=form_p %}
                                         <button class="btn btn-primary" type='submit'>PICK</button>
-                                </form>
+                                    </form>
                                 {% endif %}
                             </h6>
                         </div>

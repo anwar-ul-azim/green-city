@@ -18,13 +18,77 @@
                         </div>
                         <div class="col-sm-4">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cashmodal">Cash In | Out</button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transitionmodal">Payment</button>
                         </div>
                     </div>
                 </div>  
             </div>    
         </div>    
     </div>
+    {% if cycles_r %}
+        <div class="container">
+            <div class="row p-1 text-center">
+                <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                    <div class="card-header">
+                        <h2>My Rent Out Cycles</h2>
+                    </div>
+                    <div class="card-body text-left">
+                        {% for cycle in cycles_r %}
+                            <a href="/cycles/{{cycle.cycle.id}}">{{cycle.cycle.name}}, Model {{cycle.cycle.model}}</a>
+                            <h6>Picked by {{cycle.pick.picked_by}} on {{cycle.pick.pick_date}}</h6> 
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if cycles_h %}
+        <div class="container">
+            <div class="row p-1 text-center">
+                <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                    <div class="card-header">
+                        <h2>My Hired Cycles</h2>
+                    </div>
+                    <div class="card-body text-left">
+                        {% for cycle in cycles_h %}
+                            <a href="/cycles/{{cycle.cycle.id}}">{{cycle.cycle.name}}, Model: {{cycle.cycle.model}}</a> 
+                            <h6>Owner: {{cycle.cycle.owner}}, Picked on {{cycle.pick.pick_date}}</h6>
+                            {% if drop_btn %}
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#transitionmodal{{ forloop.counter }}">DROP</button>
+                            {% else %}
+                                <button class="btn btn-primary" disabled="disabled" type="button">DROP</button>
+                            {% endif %}
+                            <!-- transition Modal -->
+                            <div class="modal fade" id="transitionmodal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="transitionmodal{{ forloop.counter }}Title"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Transition</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form class="text-left" method="POST" action="/payments/transition/{{cycle.cycle.id}}" enctype="multipart/form-data">
+                                            <div class="modal-body">
+                                                {% csrf_token %}
+                                                {% include 'formtemplate.html' with form=form_t %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-primary" type='submit'>Pay</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <!-- Cash Modal -->
     <div class="modal fade" id="cashmodal" tabindex="-1" role="dialog" aria-labelledby="cashmodalTitle"
         aria-hidden="true">
@@ -44,30 +108,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button class="btn btn-primary" type='submit'>Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- transition Modal -->
-    <div class="modal fade" id="transitionmodal" tabindex="-1" role="dialog" aria-labelledby="transitionmodalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Transition</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="text-left" method="POST" action="{% url 'transition' %}" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        {% csrf_token %}
-                        {% include 'formtemplate.html' with form=form_t %}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type='submit'>Pay</button>
                     </div>
                 </form>
             </div>
