@@ -55,7 +55,10 @@
                             </div>
                             <div class="card-body text-left">
                                 {% for post in my_posts %}
-                                    <a href="/posts/{{post.id}}">{{post.title}}, from {{post.date}}</a><hr>
+                                    <a href="/posts/{{post.id}}">{{post.title}}, from {{post.date}}</a>
+                                    <a class="btn btn-info" href="/posts/update/{{post.id}}">Update</a>
+                                    <a class="btn btn-secondary" href="/posts/delete/{{post.id}}">Delete</a>
+                                    <hr>
                                 {% endfor %}
                             </div>
                         </div>
