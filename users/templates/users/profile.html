@@ -70,7 +70,10 @@
                             <div class="card-body text-left">
                                 {% for cycle in my_cycles %}
                                     <a href="/cycles/{{cycle.id}}">{{cycle.name}}, {{cycle.model}}, 
-                                    {% if cycle.is_picked %}Is Picked {% else %} Is not Picked {% endif %} </a><hr>
+                                    {% if cycle.is_picked %}Is Picked {% else %} Is not Picked {% endif %} </a>
+                                    <a class="btn btn-info" href="/cycles/update/{{cycle.id}}">Update</a>
+                                    <a class="btn btn-secondary" href="/cycles/delete/{{cycle.id}}">Delete</a>
+                                    <hr>
                                 {% endfor %}
                             </div>
                         </div>

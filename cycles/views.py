@@ -1,14 +1,14 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from cycles.models import Cycle, Location, Pickcycle, Dropcycle
-from .forms import NewCycleForm, LocationForm, PickForm, DropForm
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from payments.models import Payment
-from django.conf import settings
-from django.utils import timezone
-from django.contrib import messages
+from .forms import NewCycleForm, LocationForm, PickForm
+# from django.contrib.auth.models import User
+# from django.core.mail import send_mail
+# from payments.models import Payment
+# from django.conf import settings
+# from django.utils import timezone
 
 
 @login_required
@@ -24,6 +24,33 @@ def create(request):
     else:
         content = {'form': NewCycleForm()}
         return render(request, 'cycles/create.html', content)
+
+
+@login_required
+def update(request, id):
+    cycle = Cycle.objects.get(pk=id)
+    if request.user == cycle.owner:
+        if request.method == 'POST':
+            new_cycle = NewCycleForm(request.POST, request.FILES, instance=cycle)
+            if new_cycle.is_valid():
+                new_cycle.save()
+                messages.success(request, f'Cycle update successful!')
+            return redirect('profile')
+        else:
+            content = {
+                'form': NewCycleForm(instance=cycle),
+                'state': "update"
+                }
+            return render(request, 'cycles/create.html', content)
+
+
+@login_required
+def delete(request, id):
+    cycle = Cycle.objects.get(pk=id)
+    if request.user == cycle.owner:
+        cycle.delete()
+        messages.success(request, f'Cycle removed successfully!')
+    return redirect('profile')
 
 
 @login_required
