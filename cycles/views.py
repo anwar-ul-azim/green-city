@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from cycles.models import Cycle, Location, Pickcycle, Dropcycle
 from .forms import NewCycleForm, LocationForm, PickForm
+from users.models import Verify
 # from django.contrib.auth.models import User
 # from django.core.mail import send_mail
 # from payments.models import Payment
@@ -13,17 +14,22 @@ from .forms import NewCycleForm, LocationForm, PickForm
 
 @login_required
 def create(request):
-    if request.method == 'POST':
-        new_cycle = NewCycleForm(request.POST, request.FILES)
-        if new_cycle.is_valid():
-            new_cycle = new_cycle.save(commit=False)
-            new_cycle.owner = request.user
-            new_cycle.save()
-            messages.success(request, f'new cycle created!')
-        return redirect('profile')
+    is_verified = Verify.objects.get(user=request.user).is_verified
+    if is_verified:
+        if request.method == 'POST':
+            new_cycle = NewCycleForm(request.POST, request.FILES)
+            if new_cycle.is_valid():
+                new_cycle = new_cycle.save(commit=False)
+                new_cycle.owner = request.user
+                new_cycle.save()
+                messages.success(request, f'new cycle created!')
+            return redirect('profile')
+        else:
+            content = {'form': NewCycleForm()}
+            return render(request, 'cycles/create.html', content)
     else:
-        content = {'form': NewCycleForm()}
-        return render(request, 'cycles/create.html', content)
+        messages.success(request, f'You are not Fully verified to create cycle')
+        return redirect('profile')
 
 
 @login_required
@@ -100,14 +106,20 @@ def dropcycle(id):
 
 @login_required
 def pickcycle(request, id):
-    if request.method == 'POST':
-        pick=PickForm(request.POST)
-        if pick.is_valid():
-            pick = pick.save()
-            cycle = Cycle.objects.get(id=id)
-            cycle.is_picked = True
-            cycle.picked_times += 1
-            cycle.pick_id = pick.id
-            cycle.save()
-            return redirect('/cycles/'+ str(id))
+    is_verified = Verify.objects.get(user=request.user).is_verified
+    if is_verified:
+        if request.method == 'POST':
+            pick=PickForm(request.POST)
+            if pick.is_valid():
+                pick = pick.save()
+                cycle = Cycle.objects.get(id=id)
+                cycle.is_picked = True
+                cycle.picked_times += 1
+                cycle.pick_id = pick.id
+                cycle.save()
+                messages.success(request, f'You Successfully Picked this Cycle')
+                return redirect('/cycles/'+ str(id))
+    else:
+        messages.success(request, f'You are not Fully verified to Pick this cycle')
+        return redirect('/cycles/'+ str(id))
 

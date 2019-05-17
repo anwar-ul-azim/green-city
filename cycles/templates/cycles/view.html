@@ -52,7 +52,7 @@
                             </h6>
                             <hr>
                             <h6 class="text-center">
-                                {% if cycle.is_picked == False %}
+                                {% if cycle.is_picked == False and cycle.owner != request.user %}
                                     <form class="text-left" method="POST" action="/cycles/pickcycle/{{cycle.id}}" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {% include 'formtemplate.html' with form=form_p %}
