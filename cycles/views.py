@@ -94,11 +94,17 @@ def cycleView(request, id):
     return render(request, 'cycles/view.html', content)
 
 
-def dropcycle(id):
+def dropcycle(id, rating):
     cycle = Cycle.objects.get(id=id)
     pick_obj = Pickcycle.objects.get(id=cycle.pick_id)
     cycle.is_picked = False
     cycle.pick_id = 0
+    total_old_rating = cycle.rating * (cycle.picked_times - 1)
+    print(total_old_rating)
+    total_new_rating = total_old_rating + rating
+    print(total_new_rating)
+    cycle.rating = total_new_rating / cycle.picked_times
+    print(cycle.rating)
     cycle.save()
     drop, created = Dropcycle.objects.get_or_create(pick_id=pick_obj)
     drop.save()

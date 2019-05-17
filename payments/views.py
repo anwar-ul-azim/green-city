@@ -4,6 +4,7 @@ from payments.models import Payment, Transition, CashInOrOut
 from django.contrib.auth.decorators import login_required
 from .forms import CashForm, TransitionForm
 from cycles.views import dropcycle
+from cycles.forms import CycleRatingForm
 from django.utils import timezone
 from django.contrib import messages
 from datetime import datetime
@@ -69,10 +70,12 @@ def balance(request):
     drop_btn = True
     if balance.due >= balance.balance:
         drop_btn = False
+    rating = CycleRatingForm()
     content = {
         'balance': balance,
         'form_c': cash,
         'form_t': transition,
+        'rating': rating,
         'cycles_r': cycles_r,
         'cycles_h': cycles_h,
         'drop_btn': drop_btn
@@ -84,7 +87,9 @@ def balance(request):
 def transition(request, id):
     if request.method == 'POST':
         transition = TransitionForm(request.POST)
-        if transition.is_valid():
+        rating = CycleRatingForm(request.POST)
+        if transition.is_valid() and rating.is_valid():
+            rating = rating.save(commit=False)
             transition = transition.save(commit=False)
             balance_sender = Payment.objects.get(owner=transition.sender)
             if balance_sender.balance >= transition.amount:
@@ -97,7 +102,7 @@ def transition(request, id):
                 balance_receiver.earned -= transition.amount
                 balance_receiver.save()
                 transition.save()
-                dropcycle(id)
+                dropcycle(id, rating.rating)
                 messages.success(request, f'Transition Successful!!')
             else:
                 messages.success(request, f'Transition Failed!!')
