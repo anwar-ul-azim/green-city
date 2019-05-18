@@ -100,11 +100,8 @@ def dropcycle(id, rating):
     cycle.is_picked = False
     cycle.pick_id = 0
     total_old_rating = cycle.rating * (cycle.picked_times - 1)
-    print(total_old_rating)
     total_new_rating = total_old_rating + rating
-    print(total_new_rating)
     cycle.rating = total_new_rating / cycle.picked_times
-    print(cycle.rating)
     cycle.save()
     drop, created = Dropcycle.objects.get_or_create(pick_id=pick_obj)
     drop.save()
@@ -112,8 +109,8 @@ def dropcycle(id, rating):
 
 @login_required
 def pickcycle(request, id):
-    is_verified = Verify.objects.get(user=request.user).is_verified
-    if is_verified:
+    isVerified, created = Verify.objects.get_or_create(user=request.user)
+    if isVerified.is_verified:
         if request.method == 'POST':
             pick=PickForm(request.POST)
             if pick.is_valid():
