@@ -1,11 +1,35 @@
 from django.contrib import messages
 from .models import Profile, Verify
 from posts.models import Post
-from cycles.models import Cycle
+from cycles.models import Cycle, Pickcycle, Dropcycle
 from .forms import UserRegisterForm, ProfileUpdateForm, ProfileVerifyForm
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+
+
+def hireHistory(user):
+    pick_obj = Pickcycle.objects.filter(picked_by=user)
+    hired_cycle = []
+    for obj in pick_obj:
+        data = {}
+        data['pick'] = obj
+        data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+        hired_cycle.append(data)
+    return hired_cycle
+
+
+def rentHistory(user):
+    cycle_obj = Cycle.objects.filter(owner=user)
+    rented_cycle = []
+    for cycle in cycle_obj:
+        pick_obj = Pickcycle.objects.filter(cycle_id=cycle.id)
+        for obj in pick_obj:
+            data = {}
+            data['pick'] = obj
+            data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+            rented_cycle.append(data)
+    return rented_cycle
 
 
 def register(request):
@@ -51,7 +75,9 @@ def profile(request):
             'form'     : ProfileUpdateForm(instance=profile),
             'form_v'   : ProfileVerifyForm(instance=verify),
             'my_cycles': my_cycles,
-            'my_posts' : my_posts
+            'my_posts' : my_posts,
+            'hired_cycle': hireHistory(request.user),
+            'rented_cycle': rentHistory(request.user) 
         }
         return render(request, 'users/profile.html', context)
 
