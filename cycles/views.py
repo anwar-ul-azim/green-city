@@ -14,8 +14,8 @@ from users.models import Verify
 
 @login_required
 def create(request):
-    is_verified = Verify.objects.get(user=request.user).is_verified
-    if is_verified:
+    isVerified, created = Verify.objects.get_or_create(user=request.user)
+    if isVerified.is_verified:
         if request.method == 'POST':
             new_cycle = NewCycleForm(request.POST, request.FILES)
             if new_cycle.is_valid():
