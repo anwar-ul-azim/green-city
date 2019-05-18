@@ -53,9 +53,11 @@
                             <div class="card-header">
                                 <h2>My Posts</h2>
                             </div>
-                            <div class="card-body text-left">
+                            <div class="card-body">
                                 {% for post in my_posts %}
+                                <div class="text-left">
                                     <a href="/posts/{{post.id}}">{{post.title}}, from {{post.date}}</a>
+                                </div>
                                     <a class="btn btn-info" href="/posts/update/{{post.id}}">Update</a>
                                     <a class="btn btn-secondary" href="/posts/delete/{{post.id}}">Delete</a>
                                     <hr>
@@ -70,12 +72,46 @@
                             <div class="card-header">
                                 <h2>My Cycles</h2>
                             </div>
-                            <div class="card-body text-left">
+                            <div class="card-body">
                                 {% for cycle in my_cycles %}
-                                    <a href="/cycles/{{cycle.id}}">{{cycle.name}}, {{cycle.model}}, 
-                                    {% if cycle.is_picked %}Is Picked {% else %} Is not Picked {% endif %} </a>
-                                    <a class="btn btn-info" href="/cycles/update/{{cycle.id}}">Update</a>
-                                    <a class="btn btn-secondary" href="/cycles/delete/{{cycle.id}}">Delete</a>
+                                <div >
+                                    <div class="text-left">
+                                        <a href="/cycles/{{cycle.id}}">{{cycle.name}}, {{cycle.model}},
+                                            {% if cycle.is_picked %}Is Picked {% else %} Is not Picked {% endif %} </a>
+                                    </div>
+                                    <div class="text-right">
+                                        <a class="btn btn-info" href="/cycles/update/{{cycle.id}}">Update</a>
+                                        <a class="btn btn-secondary" href="/cycles/delete/{{cycle.id}}">Delete</a>
+                                    </div>
+                                    <hr>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-1 text-center">
+                        <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                            <div class="card-header">
+                                <h2>My Cycles Rent History</h2>
+                            </div>
+                            <div class="card-body text-left">
+                                {% for cycle in rented_cycle %}
+                                    <a href="/cycles/{{cycle.pick.cycle_id.id}}">Cycle </a>
+                                    Picker: {{cycle.pick.picked_by}}, Pick Date: {{cycle.pick.pick_date}}, Drop Date: {{cycle.drop.drop_date}}
+                                    <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-1 text-center">
+                        <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                            <div class="card-header">
+                                <h2>My Cycles Hire History</h2>
+                            </div>
+                            <div class="card-body text-left">
+                                {% for cycle in hired_cycle %}
+                                    <a href="/cycles/{{cycle.pick.cycle_id.id}}">Cycle: </a>
+                                    Owner: {{cycle.pick.cycle_id.owner}}, Picked on {{cycle.pick.pick_date}} and  Droped on {{cycle.drop.drop_date}}
                                     <hr>
                                 {% endfor %}
                             </div>
