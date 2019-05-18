@@ -1,28 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Green City{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row p-1 text-center">
-            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
-                <div class="card-body">
-                    <h2>Home</h2>
-                    <div class="border-top pt-3">
-                        <small class="text-muted">
-                            <a href="{% url 'login' %}">sign in </a> | or
-                            <a href="{% url 'register' %}">sign Up </a>
-                        </small>
-                    </div>
-                </div>  
-            </div>    
-        </div>    
-    </div>
+    {% if user.is_authenticated %}
     <div class="container">
         <div class="row p-1 text-center">
             <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
                 <div class="card-body">
                     <h2>Cycles</h2>
-                    <div class="border-top pt-3">
+                    <div class="pt-3">
+                    <form class="form-inline" method="post">
+                        <div class="col-10 p-0">
+                            {% csrf_token %}
+                            <input class="form-control m-0" style="width:100%" type="text" placeholder="Search . . ." aria-label="search" name="search">
+                        </div>
+                        <div class="col-2 p-0">
+                            <button class="btn btn-info m-0" type="submit" style="width:100%;"><i class="fa fa-search text-light"></i></button>
+                        </div>
+                    </form>
                         {% for cycle in cycles %}
+                            <hr>
                             <a href="cycles/{{cycle.id}}" class="nav-link text-left text-dark">
                             <div class="row">
                                 <div class="col-sm-4 pt-3"><h6>
@@ -37,8 +33,9 @@
                                     <img src="{{cycle.image.url}}" alt="cycle picture" style="width:50%; height:auto;">
                                 </div>
                             </div>
-                            </a> <hr>
+                            </a>
                         {% endfor %}
+                        <hr>                        
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 {% if cycles.has_previous %}
@@ -54,9 +51,27 @@
                                 {% endif %}
                             </ul>
                         </nav>
+
+                    </div> 
+                </div>  
+            </div>    
+        </div>    
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="row p-1 text-center">
+            <div class="card bg-light mb-3 mt-3 mx-auto" style="width: 55rem;">
+                <div class="card-body">
+                    <h2>Home</h2>
+                    <div class="border-top pt-3">
+                        <small class="text-muted">
+                            <a href="{% url 'login' %}">sign in </a> | or
+                            <a href="{% url 'register' %}">sign Up </a>
+                        </small>
                     </div>
                 </div>  
             </div>    
         </div>    
-    </div>                
+    </div>
+    {% endif %}                
 {% endblock %}

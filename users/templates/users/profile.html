@@ -97,7 +97,7 @@
                             <div class="card-body text-left">
                                 {% for cycle in rented_cycle %}
                                     <a href="/cycles/{{cycle.pick.cycle_id.id}}">Cycle </a>
-                                    Picker: {{cycle.pick.picked_by}}, Pick Date: {{cycle.pick.pick_date}}, Drop Date: {{cycle.drop.drop_date}}
+                                    Picker: {{cycle.pick.picked_by}}, Picked on {{cycle.pick.pick_date|date:"d M Y"}} and  Droped on {{cycle.drop.drop_date|date:"d M Y"}}
                                     <hr>
                                 {% endfor %}
                             </div>
@@ -111,7 +111,7 @@
                             <div class="card-body text-left">
                                 {% for cycle in hired_cycle %}
                                     <a href="/cycles/{{cycle.pick.cycle_id.id}}">Cycle: </a>
-                                    Owner: {{cycle.pick.cycle_id.owner}}, Picked on {{cycle.pick.pick_date}} and  Droped on {{cycle.drop.drop_date}}
+                                    Owner: {{cycle.pick.cycle_id.owner}}, Picked on {{cycle.pick.pick_date|date:"d M Y"}} and  Droped on {{cycle.drop.drop_date|date:"d M Y"}}
                                     <hr>
                                 {% endfor %}
                             </div>
