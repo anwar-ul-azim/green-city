@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect
-from cycles.models import Cycle, Pickcycle, Dropcycle
-from payments.models import Payment, Transition, CashInOrOut
-from django.contrib.auth.decorators import login_required
-from .forms import CashForm, TransitionForm
-from cycles.views import dropcycle
+import math
+from datetime import datetime
 from django.utils import timezone
 from django.contrib import messages
-from datetime import datetime
-import math
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from .forms import CashForm, TransitionForm
+from .models import Payment, Transition, CashInOrOut
+from cycles.models import Cycle, Pickcycle, Dropcycle
+from cycles.forms import CycleRatingForm
+from cycles.views import dropcycle
 
 
 def getFair(cycles):
@@ -50,32 +52,36 @@ def balance(request):
         balance.balance = 100
         balance.save()
         messages.success(request, f'You Got 100 BDT SignUp Bonus!!')
-    cycles_r = getRentedCycles(request.user)
-    cycles_h = getHiredCycle(request.user)
-    balance.earned = getFair(cycles_r)
+    cycles_rent = getRentedCycles(request.user)
+    cycles_hire = getHiredCycle(request.user)
+    balance.earned = getFair(cycles_rent)
     if balance.earned <= 0:
         balance.earned = 0
-    balance.due = getFair(cycles_h)
+    balance.due = getFair(cycles_hire)
     balance.save()
     cash = CashForm()
     cash.fields["client"].initial = request.user
     transition = TransitionForm()
     transition.fields["sender"].initial = request.user
     receiver = None
-    for cycle_obj in cycles_h:
+    for cycle_obj in cycles_hire:
         receiver = cycle_obj['cycle'].owner
     transition.fields["receiver"].initial = receiver
     transition.fields["amount"].initial = balance.due
     drop_btn = True
     if balance.due >= balance.balance:
         drop_btn = False
+    rating = CycleRatingForm()
     content = {
         'balance': balance,
         'form_c': cash,
         'form_t': transition,
-        'cycles_r': cycles_r,
-        'cycles_h': cycles_h,
-        'drop_btn': drop_btn
+        'form_r': rating,
+        'cycles_r': cycles_rent,
+        'cycles_h': cycles_hire,
+        'drop_btn': drop_btn,
+        'transition_history': Transition.objects.filter(Q(sender=request.user) | Q(receiver=request.user)),
+        'cash_history': CashInOrOut.objects.filter(client=request.user) 
     }
     return render(request, 'payments/balance.html', content)
 
@@ -84,7 +90,9 @@ def balance(request):
 def transition(request, id):
     if request.method == 'POST':
         transition = TransitionForm(request.POST)
-        if transition.is_valid():
+        rating = CycleRatingForm(request.POST)
+        if transition.is_valid() and rating.is_valid():
+            rating = rating.save(commit=False)
             transition = transition.save(commit=False)
             balance_sender = Payment.objects.get(owner=transition.sender)
             if balance_sender.balance >= transition.amount:
@@ -97,7 +105,7 @@ def transition(request, id):
                 balance_receiver.earned -= transition.amount
                 balance_receiver.save()
                 transition.save()
-                dropcycle(id)
+                dropcycle(id, rating.rating)
                 messages.success(request, f'Transition Successful!!')
             else:
                 messages.success(request, f'Transition Failed!!')
