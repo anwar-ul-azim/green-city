@@ -1,7 +1,9 @@
 import math
 from datetime import datetime
+from django.conf import settings
 from django.utils import timezone
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -10,7 +12,6 @@ from .models import Payment, Transition, CashInOrOut
 from cycles.models import Cycle, Pickcycle, Dropcycle
 from cycles.forms import CycleRatingForm
 from cycles.views import dropcycle
-
 
 def getFair(cycles):
     fair = 0
@@ -107,6 +108,11 @@ def transition(request, id):
                 transition.save()
                 dropcycle(id, rating.rating)
                 messages.success(request, f'Transition Successful!!')
+                email_to = [request.user.email, transition.receiver.email]
+                message = 'Hello \n'
+                message += 'Amount of ' + str(transition.amount) + ' BDT successfully transfer from the account of '+ transition.sender.username +' to the account of ' + transition.receiver.username + '. \n' 
+                message += 'If it seems specious to you, contact with us ASAP. \nRegards, \nGreen-city.'
+                send_mail('Transition Notice', message, settings.EMAIL_HOST_USER, email_to, fail_silently=False) 
             else:
                 messages.success(request, f'Transition Failed!!')
     return redirect('balance')
@@ -119,11 +125,17 @@ def cash(request):
         if cash.is_valid():
             cash = cash.save()
             client = Payment.objects.get(owner=cash.client)
+            message = 'Hello' + request.user.username + ', \n'
             if cash.cash_in > 0:
                 client.balance += cash.cash_in
                 messages.success(request, f'Cash In Successful!!')
+                message += 'Amount of' + str(cash.cash_in) + 'BDT successfully add to your Green-city Account. \n'
             if cash.cash_out > 0:
                 client.balance -= cash.cash_out
                 messages.success(request, f'Cash Out Successful!!')
+                message += 'Amount of' + str(cash.cash_out) + 'BDT successfully reduced from your Green-city Account. \n'
             client.save()
+            email_to = request.user.email
+            message += 'If it seems specious to you, contact with us ASAP. \nRegards, \nGreen-city.'
+            send_mail('Cash Transition Notice', message, settings.EMAIL_HOST_USER, [email_to], fail_silently=False)
     return redirect('balance')

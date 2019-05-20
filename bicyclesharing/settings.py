@@ -201,7 +201,6 @@ CKEDITOR_CONFIGS = {
 PHONENUMBER_DEFAULT_REGION = "NATIONAL"
 
 #Social Media Integration
-
 #Goggle
 SESSION_COOKIE_SAMESITE = config('SESSION_COOKIE_SAMESITE', default='Lax')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config(
@@ -212,11 +211,19 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = config(
     'SOCIAL_AUTH_RAISE_EXCEPTIONS', default=False, cast=bool)
 
 
-# Email config
-EMAIL_BACKEND = config(
-    'EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+# Email config (SENDGRID API used)
+SEND_GRID_API_KEY = config('SEND_GRID_API_KEY', default='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')
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST = config('EMAIL_HOST', default='')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.sendgrid.net')
+EMAIL_HOST_USER = config(
+    'EMAIL_HOST_USER', default='bicyclesharing101@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='cse499asns1sir')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='no_reply@bi-cyclesharing.com')
+ACCOUNT_EMAIL_SUBJECT_PREFIX = config('ACCOUNT_EMAIL_SUBJECT_PREFIX', default='contact@bi-cyclesharing.com')
+
+# other email & pass
+# piasaneon619@gmail.com hello@123
+# bicyclesharing101@gmail.com
+# cse499asns1sir
