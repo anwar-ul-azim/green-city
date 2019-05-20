@@ -1,21 +1,21 @@
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
-from .models import Profile, Verify
 from posts.models import Post
 from cycles.models import Cycle, Pickcycle, Dropcycle
+from .models import Profile, Verify
+from .tokens import account_activation_token
 from .forms import UserRegisterForm, ProfileUpdateForm, ProfileVerifyForm
-from django.http import HttpResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import render, redirect
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+
 
 def hireHistory(user):
     pick_obj = Pickcycle.objects.filter(picked_by=user)
@@ -23,7 +23,10 @@ def hireHistory(user):
     for obj in pick_obj:
         data = {}
         data['pick'] = obj
-        data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+        try:
+            data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+        except ObjectDoesNotExist:
+            data['drop'] = None
         hired_cycle.append(data)
     return hired_cycle
 
@@ -36,7 +39,10 @@ def rentHistory(user):
         for obj in pick_obj:
             data = {}
             data['pick'] = obj
-            data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+            try:
+                data['drop'] = Dropcycle.objects.get(pick_id=obj.id)
+            except ObjectDoesNotExist:
+                data['drop'] = None
             rented_cycle.append(data)
     return rented_cycle
 
@@ -120,19 +126,18 @@ def profileVerify(request):
             data.user = request.user
             data.is_verify_submit = True
             data.save()
-            # send_mail(subject, message, from_email , to_email, fail_silently=True)                ###This method can be use to send any information to user email
             messages.success(request, f'Your account verification request has been submitted!')
             return redirect('profile')
 
 
 """
-This method is used to activate user account. As there are other backends which are currently for other functionalities to perform 
-the activation task in more efficient way 'django.contrib.auth.backends.ModelBackend' was defiened explicitly. Without activating via this confirmation url user cannot login 
-to our site.
+This method is used to activate user account. As there are other backends which are currently for other 
+functionalities to perform the activation task in more efficient way 'django.contrib.auth.backends.
+ModelBackend' was defined explicitly. Without activating via this confirmation url user cannot login to our site.
 """
 def activate(request, uidb64, token,  backend='django.contrib.auth.backends.ModelBackend'):
+    uid = force_text(urlsafe_base64_decode(uidb64))
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
