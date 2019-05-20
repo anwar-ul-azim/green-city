@@ -45,13 +45,13 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
-            subject = 'Dear {},Thank you for joining us.Please activate your blog account.'.format(username)
+            subject = 'Dear {},Thank you for joining us.Please activate your account.'.format(username)
             message = message = render_to_string('users/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -63,11 +63,10 @@ def register(request):
             email = EmailMessage(
                         subject, message, to=[to_email]
             )
-            # send_mail(subject, message, from_email , to_email, fail_silently=True)
-            messages.success(request, f'{username} account has been created! You will now able to log in')
+            send_mail(subject, message, from_email , to_email, fail_silently=True)
+            messages.success(request, f'Please confirm your email address to complete the registration')
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
-            # return redirect('login')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
@@ -143,7 +142,7 @@ def activate(request, uidb64, token,  backend='django.contrib.auth.backends.Mode
         user.is_active = True
         user.save()
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        # return redirect('home')
-        return redirect('profile')
+        messages.success(request, f'Your account has been created! You will now able to setup your profile')
     else:
-        return HttpResponse('Activation link is invalid!')
+        messages.success(request, f'Activation link is invalid!')
+    return redirect('home')

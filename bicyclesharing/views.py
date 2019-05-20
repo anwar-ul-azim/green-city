@@ -12,7 +12,7 @@ def home(request):
                 if request.POST['search'] in cycle.model:
                     cycles_list.append(cycle)
     else:
-        cycles_list = Cycle.objects.all()
+        cycles_list = Cycle.objects.get_queryset().order_by('id')  
     paginator = Paginator(cycles_list, 5)  # Show 5 items per page
     page = request.GET.get('page')
     cycles = paginator.get_page(page)

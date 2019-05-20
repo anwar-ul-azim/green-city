@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 from decouple import config, Csv
 from django.utils.translation import ugettext_lazy as _
-# from .email_config import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -202,7 +201,6 @@ CKEDITOR_CONFIGS = {
 PHONENUMBER_DEFAULT_REGION = "NATIONAL"
 
 #Social Media Integration
-
 #Goggle
 SESSION_COOKIE_SAMESITE = config('SESSION_COOKIE_SAMESITE', default='Lax')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config(
@@ -214,17 +212,16 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = config(
 
 
 # Email config (SENDGRID API used)
-SEND_GRID_API_KEY = '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'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'piasaneon619@gmail.com'
-EMAIL_HOST_PASSWORD = 'hello@123'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'no_reply@bi-cyclesharing.com'
-ACCOUNT_EMAIL_SUBJECT_PREFIX = 'contact@bi-cyclesharing.com'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SEND_GRID_API_KEY = config('SEND_GRID_API_KEY', default='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')
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.sendgrid.net')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='piasaneon619@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='hello@123')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='no_reply@bi-cyclesharing.com')
+ACCOUNT_EMAIL_SUBJECT_PREFIX = config('ACCOUNT_EMAIL_SUBJECT_PREFIX', default='contact@bi-cyclesharing.com')
 
-
-
-
-
+# other email & pass
+# bicyclesharing101@gmail.com
+# cse499asns1sir
