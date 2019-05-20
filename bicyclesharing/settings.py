@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'cycles',
     'payments',
     'posts',
+    'apis',
     # 3rd party library
+    'rest_framework',
     'social_django',           
     'ckeditor',
     'ckeditor_uploader',
@@ -225,5 +227,15 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = config('ACCOUNT_EMAIL_SUBJECT_PREFIX', default='c
 
 # other email & pass
 # piasaneon619@gmail.com hello@123
-# bicyclesharing101@gmail.com
-# cse499asns1sir
+# bicyclesharing101@gmail.com cse499asns1sir
+
+#rest framework settings
+# Pagination control. How many objects per page will be returned.
+# PERMISSION Access
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
