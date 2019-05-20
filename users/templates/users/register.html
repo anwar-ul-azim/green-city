@@ -8,8 +8,7 @@
                     <h2>Register With Us</h2>
                 </div>
                 <div class="card-body">
-                    <form class="text-left" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
+                    <form class="text-left" method="POST" enctype="multipart/form-data">{% csrf_token %}
                         {% include 'formtemplate.html' with form=form %}     
                         <button class="btn btn-dark m-2" type='submit'>Sign Up</button>
                         | Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
