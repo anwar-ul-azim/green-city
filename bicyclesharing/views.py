@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from cycles.models import Cycle
+from posts.models import Post
 
 def home(request):
     cycles_list = []
@@ -16,8 +17,10 @@ def home(request):
     paginator = Paginator(cycles_list, 5)  # Show 5 items per page
     page = request.GET.get('page')
     cycles = paginator.get_page(page)
+    posts_list = Post.objects.all()[:2]
     content = {
-        'cycles': cycles
+        'cycles': cycles,
+        'posts': posts_list
         }
     return render(request, 'home.html', content)
 

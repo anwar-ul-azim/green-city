@@ -1,49 +1,80 @@
 <style>
-    .modal-body {
+    .contact-text {
         line-height: 2;
+        font-weight: 700;
     }
-</style><!-- Footer -->
+    .copyright-text {
+        font-size: 10px;
+        padding-top: 30px;
+        color: rgb(80, 77, 77);
+    }
+    .footer-text {
+        padding: 10px 20px;
+        font-size: 12px;
+        font-weight: 700;
+        color: rgb(80, 77, 77);
+    }
+    .social-logo {
+        padding: 8px;
+        color: rgb(190, 42, 42);
+    }
+</style>
+<!-- Footer -->
 <footer class="container-fluid bg-primary text-dark">
-    <div class="container pt-5 mt-3">
+    <div class="container pt-3">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contact">
-                    <h5>Contact Us  <i class="fa fa-address-book"></i></h5>
-                </button>
+            <div class="col-md-5 text-center">
+                <h6>
+                    <a class="footer-text" href="{% url 'home' %}"> HOME </a>
+                    <a class="footer-text" href="{% url 'about' %}"> ABOUT US </a>
+                    <a class="footer-text" href="{% url 'faq' %}"> FAQ </a>
+                    <a data-toggle="modal" class="footer-text" href="#contact"> CONTACT US </a>
+                </h6>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h5> All Rights Reserved</h5>
-                <h6> &copy; {% now "Y" %} Green City </h6>
+            <div class="col-md-2 text-center">
+                <h6 class="copyright-text"> &copy; {% now "Y" %} 
+                    <a href="/" class="copyright-text">
+                        Green City 
+                    </a>
+                </h6>
+            </div>
+            <div class="col-md-2 text-center">
+                <h6>
+                    <a href="https://www.facebook.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="facebook.com/greencity"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.twitter.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="twitter.com/greencity"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="instagram.com/greencity"><i class="fab fa-instagram"></i></a>
+                </h6>
+            </div>
+            <div class="col-md-2 text-center">
+                <h6>
+                    <a class="footer-text" href="/"> Select Language </a>
+                </h6>
             </div>
         </div>
     </div>
-<!-- Modal -->
-<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Connect With Us</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+    <!-- Modal -->
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title contact-text" id="exampleModalLongTitle">Connect With Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="contact-text">
+                        <a href="mailto:greencity@greencity.com" target="_blank" data-toggle="tooltip" data-placement="bottom" title="greencity@greencity.com"><i class="fa fa-envelope"></i></a> Mail Us: greencity@greencity.com
+                    </h6>
+                    <hr>
+                    <h6 class="contact-text">
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="+880167858585"><i class="fa fa-phone"></i></a> Call Us: +880167858585
+                    </h6>
+                </div>
+                <div class="modal-footer  justify-content-center">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Great</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <a href="mailto:greencity@greencity.com" target="_blank" data-toggle="tooltip" data-placement="bottom" 
-            title="greencity@greencity.com"> Mail Us <i class="fa fa-envelope fa-lg pr-3 pl-3"></i></a><br>
-            
-            <a href=""> Call Us: <i class="fa fa-phone"></i> 0167858585 </a><br>
-
-            <a href="https://www.facebook.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" 
-            title="facebook.com/greencity"> Facebook <i class="fab fa-facebook"></i></a>
-    
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Great</button>
-        </div>
-        </div>
-    </div>
     </div>    
 </footer>
