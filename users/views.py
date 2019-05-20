@@ -49,23 +49,21 @@ def register(request):
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
+            username = user.username
+            email = user.email
             subject = 'Dear {},Thank you for joining us.Please activate your account.'.format(username)
             message = message = render_to_string('users/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-                'token':account_activation_token.make_token(user),
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token': account_activation_token.make_token(user),
             })
-            from_email = settings.DEFAULT_FROM_EMAIL
+            from_email = settings.EMAIL_HOST_USER
             to_email = [email]
-            email = EmailMessage(
-                        subject, message, to=[to_email]
-            )
-            send_mail(subject, message, from_email , to_email, fail_silently=True)
+            send_mail(subject, message, from_email, to_email, fail_silently=False) 
+            # console_email = EmailMessage(subject, message, to=[to_email]) 
+            # console_email.send() 
             messages.success(request, f'Please confirm your email address to complete the registration')
-            email.send()
             return redirect('login')
     else:
         form = UserRegisterForm()
