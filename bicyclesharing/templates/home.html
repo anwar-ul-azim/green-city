@@ -69,6 +69,19 @@
                             <a href="{% url 'register' %}">sign Up </a>
                         </small>
                     </div>
+                    <hr>
+                    {% for post in posts %}
+                    <a href="/posts/{{post.id}}" class="nav-link">
+                        <h5 class="text-dark"> {{post.title}} <br> </h5>
+                        <img src="{{post.image.url}}" alt="post picture" style="width:30%; height:auto;"> <br>
+                    </a>
+                    <p class="text-muted">
+                        by {{post.author}}, on
+                        {{post.date}}
+                        {{post.summary | safe}}
+                    </p>
+                    <hr>
+                    {% endfor %}
                 </div>  
             </div>    
         </div>    
