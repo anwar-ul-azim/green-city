@@ -9,6 +9,10 @@ class Payment(models.Model):
     earned = models.IntegerField(default=0)
     due = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.owner
+
+
 class Transition(models.Model):
     sender = models.ForeignKey(
         User, related_name='sender', on_delete=models.CASCADE)
@@ -16,9 +20,10 @@ class Transition(models.Model):
         User, related_name='receiver', on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
     date = models.DateTimeField(default=timezone.now)
+    
 
 class CashInOrOut(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE)
     cash_in = models.IntegerField(default=0, blank=True)
-    cash_out = models.IntegerField(default=0, blank=True)
+    cash_out = models.IntegerField(default=0, blank=True) 
     date = models.DateTimeField(default=timezone.now)

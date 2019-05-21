@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 def upload_image_to(instance, filename):
-    return 'cycle/cycle_{0}/{1}'.format(instance.owner, filename)
+    return 'cycle/cycle_{0}/{1}'.format(instance.owner, filename) 
 
 
 class Cycle(models.Model):
@@ -19,6 +19,9 @@ class Cycle(models.Model):
                                 MinValueValidator(1), MaxValueValidator(5)])
     picked_times = models.IntegerField(default=0)
     pick_id = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.model
 
 
 class Pickcycle(models.Model):
@@ -43,3 +46,6 @@ class Location(models.Model):
     gps_lon = models.CharField(
         max_length=30, blank=True, verbose_name="Longitude")
     cycle_id = models.OneToOneField(Cycle, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.area
