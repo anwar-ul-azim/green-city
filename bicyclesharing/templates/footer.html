@@ -27,10 +27,10 @@
         <div class="row">
             <div class="col-md-5 text-center">
                 <h6>
-                    <a class="footer-text" href="{% url 'home' %}"> HOME </a>
-                    <a class="footer-text" href="{% url 'about' %}"> ABOUT US </a>
-                    <a class="footer-text" href="{% url 'faq' %}"> FAQ </a>
-                    <a data-toggle="modal" class="footer-text" href="#contact"> CONTACT US </a>
+                    <a class="footer-text" href="{% url 'home' %}">{% trans "HOME" %}</a>
+                    <a class="footer-text" href="{% url 'about' %}">{% trans "ABOUT US" %}</a>
+                    <a class="footer-text" href="{% url 'faq' %}">{% trans "FAQ" %}</a>
+                    <a data-toggle="modal" class="footer-text" href="#contact">{% trans "CONTACT US" %}</a>
                 </h6>
             </div>
             <div class="col-md-2 text-center">
@@ -40,17 +40,35 @@
                     </a>
                 </h6>
             </div>
-            <div class="col-md-2 text-center">
+            <div class="col-md-2 text-center p-0">
                 <h6>
                     <a href="https://www.facebook.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="facebook.com/greencity"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.twitter.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="twitter.com/greencity"><i class="fab fa-twitter"></i></a>
                     <a href="https://www.instagram.com/greencity" target="_blank" data-toggle="tooltip" data-placement="bottom" class="social-logo" title="instagram.com/greencity"><i class="fab fa-instagram"></i></a>
                 </h6>
             </div>
-            <div class="col-md-2 text-center">
-                <h6>
-                    <a class="footer-text" href="/"> Select Language </a>
-                </h6>
+            <div class="col-md-3 text-center p-0">
+                {% get_current_language as LANGUAGE_CODE %}
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+
+                            <label class="footer-text p-0  pl-5" style="padding-top:2px;">{% trans "Language" %}:</label>
+                            <input type="hidden" name="text" value="{{ redirect_to }}">
+                            <select class="form-control footer-text p-0" name="language" id="" style="width:30%; height:35%">
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages%}
+                                <option value="{{ language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                    {{ language.name_local }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-danger btn-sm p-0" style="height: 21px; width:25px" type="submit" value="Go"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -76,20 +94,6 @@
                 <div class="modal-footer  justify-content-center">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Great</button>
                 </div>
-                {% get_current_language as LANGUAGE_CODE %}
-                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                <input type="hidden" name="text" value="{{ redirect_to}}">
-                <select name="language" id="">
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages%}
-                        <option value="{{ language.code}}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                            {{ language.name_local}} ({{ language.code }})
-                        </option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Go">
-                </form>
             </div>
         </div>
     </div>    

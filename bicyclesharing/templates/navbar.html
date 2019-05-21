@@ -12,20 +12,23 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}"> {% trans "Profile" %}</a>
+                        <a class="nav-link" href="{% url 'profile' %}"> {% trans "PROFILE" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'post' %}"> {% trans "Post" %}</a>
+                        <a class="nav-link" href="{% url 'post' %}"> {% trans "POST" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'balance' %}">{% trans "Balance" %}</a>
+                        <a class="nav-link" href="{% url 'balance' %}">{% trans "BALANCE" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans "LOGOUT" %}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
+                        <a class="nav-link" href="{% url 'login' %}">{% trans "LOGIN" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">{% trans "REGISTER" %}</a>
                     </li>
                 {% endif %}
             </ul>
