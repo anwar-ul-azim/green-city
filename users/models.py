@@ -16,7 +16,7 @@ class Profile(models.Model):
         default='default.jpg', upload_to=upload_pic_to)
     phone_number = PhoneNumberField()
     address = models.CharField(max_length=255, verbose_name="Present Address")
-    is_email_verified = models.BooleanField(default=False)    
+    is_email_verified = models.BooleanField(default=False) 
     
     def __str__(self):
         return f'{self.user.username} Profile' 

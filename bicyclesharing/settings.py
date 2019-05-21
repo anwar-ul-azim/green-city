@@ -68,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',            # for translation
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -92,6 +92,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',  # for translation
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # social media config
@@ -141,8 +142,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# default Language
+LANGUAGE_CODE = 'bn'
 
+# Translateable languages for the website
 LANGUAGES = [
     ('bn', _('Bengali')),
     ('en', _('English')),
@@ -156,6 +159,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Storage for translations
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
@@ -198,6 +202,7 @@ CKEDITOR_CONFIGS = {
         'disallowedContent': 'img{width,height};',
     },
 }
+
 
 # Phonenumber config
 PHONENUMBER_DEFAULT_REGION = "NATIONAL"
