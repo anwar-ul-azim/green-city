@@ -143,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 # default Language
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'bn'
 
 # Translateable languages for the website
 LANGUAGES = [

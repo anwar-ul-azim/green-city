@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 20:59+0600\n"
+"POT-Creation-Date: 2019-05-22 02:52+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,117 +17,77 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\bicyclesharing\settings.py:149
-msgid "Bengali"
-msgstr ""
-
 #: .\bicyclesharing\settings.py:150
+msgid "Bengali"
+msgstr "বাংলা"
+
+#: .\bicyclesharing\settings.py:151
 msgid "English"
-msgstr ""
+msgstr "ইংরেজি"
 
 #: .\bicyclesharing\templates\about.html:9
 msgid "About Us"
 msgstr "আমাদের সম্পর্কে বিস্তারিত"
 
 #: .\bicyclesharing\templates\about.html:12
-#: .\bicyclesharing\templates\home.html:9
-#: .\bicyclesharing\templates\navbar.html:28
 msgid "Home"
 msgstr "হোম"
 
-#: .\bicyclesharing\templates\footer.html:8
-msgid "phone"
-msgstr "ফোন"
+#: .\bicyclesharing\templates\footer.html:30
+msgid "HOME"
+msgstr "হোম"
 
-#: .\bicyclesharing\templates\footer.html:9
-msgid "email"
-msgstr "ইমেইল"
+#: .\bicyclesharing\templates\footer.html:31
+msgid "ABOUT US"
+msgstr "আমাদের সম্পর্কে"
 
-#: .\bicyclesharing\templates\footer.html:10
-msgid "address"
-msgstr "ঠিকানা"
+#: .\bicyclesharing\templates\footer.html:32
+msgid "FAQ"
+msgstr "প্রশ্নাবলী"
 
-#: .\bicyclesharing\templates\footer.html:13
-msgid "facebook"
-msgstr "ফেসবুক"
+#: .\bicyclesharing\templates\footer.html:33
+msgid "CONTACT US"
+msgstr "যোগাযোগ করুন"
 
-#: .\bicyclesharing\templates\footer.html:14
-msgid "instagram"
-msgstr "ইনস্ট্রাগ্রাম"
-
-#: .\bicyclesharing\templates\footer.html:15
-msgid "twitter"
-msgstr "টুইটার"
-
-#: .\bicyclesharing\templates\home.html:12
-msgid "Sign In"
-msgstr "সাইন ইন"
-
-#: .\bicyclesharing\templates\home.html:13
-msgid "Sign Up"
-msgstr "সাইন আপ"
-
-#: .\bicyclesharing\templates\home.html:24
-msgid "Cycles"
-msgstr "সাইকেল"
+#: .\bicyclesharing\templates\footer.html:56
+msgid "Language"
+msgstr "ভাষা"
 
 #: .\bicyclesharing\templates\navbar.html:15
-msgid "Profile"
+msgid "PROFILE"
 msgstr "প্রোফাইল"
 
 #: .\bicyclesharing\templates\navbar.html:18
-msgid "Post"
+msgid "POST"
 msgstr "পোস্ট"
 
 #: .\bicyclesharing\templates\navbar.html:21
-msgid "Balance"
+msgid "BALANCE"
 msgstr "ব্যালেন্স"
 
 #: .\bicyclesharing\templates\navbar.html:24
-msgid "Logout"
+msgid "LOGOUT"
 msgstr "লগআউট"
 
-#: .\bicyclesharing\templates\navbar.html:31
-#, fuzzy
-#| msgid "About Us"
-msgid "About"
-msgstr "আমাদের সম্পর্কে বিস্তারিত"
-
-#: .\bicyclesharing\templates\navbar.html:34
-msgid "Login"
-msgstr "লগইন"
-
-#: .\bicyclesharing\templates\navbar.html:37
-msgid "Register"
+#: .\bicyclesharing\templates\navbar.html:28
+msgid "REGISTER"
 msgstr "রেজিস্ট্রার"
 
-#: .\bicyclesharing\urls.py:17
-msgid "admin/"
-msgstr ""
+#: .\bicyclesharing\templates\navbar.html:31
+msgid "LOGIN"
+msgstr "লগইন"
 
-#: .\bicyclesharing\urls.py:19
-msgid "about/"
-msgstr "এবাউট"
+#: .\cycles\forms.py:19
+msgid "Give a Rating for the Cycle"
+msgstr "সাইকেলটি রেট করুন"
 
-#: .\bicyclesharing\urls.py:20
-msgid "cycles/"
-msgstr ""
+#: .\cycles\forms.py:22
+msgid "min 1 lowest to max 5 highest."
+msgstr "সর্বোচ্চ 1 সর্বনিম্ন সর্বোচ্চ সর্বোচ্চ 5।"
 
-#: .\bicyclesharing\urls.py:21
-msgid "users/"
-msgstr ""
-
-#: .\bicyclesharing\urls.py:22
-msgid "posts/"
-msgstr ""
-
-#: .\bicyclesharing\urls.py:23
-msgid "payments/"
-msgstr ""
-
-#: .\bicyclesharing\urls.py:24
-msgid "faq/"
-msgstr ""
+#: .\users\forms.py:22 .\users\forms.py:23
+msgid "Phone Number"
+msgstr "ফোন নম্বর"
 
 #: .\users\templates\users\login.html:9
 msgid "Log In"
@@ -135,4 +95,4 @@ msgstr "লগইন করুন"
 
 #: .\users\templates\users\login.html:19
 msgid "Need An Account?"
-msgstr "একাউন্ট প্রয়োজন"
+msgstr "একাউন্ট প্রয়োজন ?"
