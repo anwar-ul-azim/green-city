@@ -5,7 +5,6 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from ckeditor_uploader import views as ckviews
 from django.views.decorators.cache import never_cache
-from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
 
@@ -20,6 +19,7 @@ urlpatterns = i18n_patterns(
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
     path('payments/', include('payments.urls')),
+    path('api/', include('apis.urls')),
 
     path('faq/', views.faq, name='faq'),
     path('about/', views.about, name='about'),
