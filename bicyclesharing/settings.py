@@ -64,8 +64,8 @@ AUTHENTICATION_BACKENDS = [
 
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',            # for translation
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,8 +90,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.template.context_processors.i18n',  #Without this translation will still work but there might be problem for different django version
-
+                'django.template.context_processors.i18n',  # for translation
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # social media config
@@ -141,11 +140,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-from django.utils.translation import ugettext_lazy as gettext
-#Base Language
+# default Language
 LANGUAGE_CODE = 'en-us'
 
-#Translateable languages for the website
+# Translateable languages for the website
 LANGUAGES = [
     ('bn', _('Bengali')),
     ('en', _('English')),
@@ -153,17 +151,13 @@ LANGUAGES = [
 
 TIME_ZONE = 'UTC'
 
-"""
-Librarary for Internationalization the website. Every template where translation is required {% load i18n %} should be 
-loaded along with the parent template.
-"""
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
 
-#Storage for translations
+# Storage for translations
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
@@ -206,7 +200,6 @@ CKEDITOR_CONFIGS = {
         'disallowedContent': 'img{width,height};',
     },
 }
-
 
 
 # Phonenumber config

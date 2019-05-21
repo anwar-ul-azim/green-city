@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
-from django.utils.translation import ugettext_lazy as _
 from PIL import Image
+
 User._meta.get_field('email')._unique = True
 
 def upload_pic_to(instance, filename):
@@ -15,7 +15,7 @@ class Profile(models.Model):
     profile_picture = models.ImageField(
         default='default.jpg', upload_to=upload_pic_to)
     phone_number = PhoneNumberField()
-    address = models.CharField(max_length=255, verbose_name=("Present Address"))
+    address = models.CharField(max_length=255, verbose_name="Present Address")
     is_email_verified = models.BooleanField(default=False) 
     
     def __str__(self):
