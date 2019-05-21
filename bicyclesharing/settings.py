@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'cycles',
     'payments',
     'posts',
+    'apis',
     # 3rd party library
+    'rest_framework',
     'social_django',           
     'ckeditor',
     'ckeditor_uploader',
@@ -66,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',            # for translation
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -90,6 +92,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',  # for translation
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # social media config
@@ -139,8 +142,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# default Language
+LANGUAGE_CODE = 'bn'
 
+# Translateable languages for the website
 LANGUAGES = [
     ('bn', _('Bengali')),
     ('en', _('English')),
@@ -154,6 +159,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Storage for translations
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
@@ -197,11 +203,11 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+
 # Phonenumber config
 PHONENUMBER_DEFAULT_REGION = "NATIONAL"
 
 #Social Media Integration
-
 #Goggle
 SESSION_COOKIE_SAMESITE = config('SESSION_COOKIE_SAMESITE', default='Lax')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config(
@@ -212,11 +218,29 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = config(
     'SOCIAL_AUTH_RAISE_EXCEPTIONS', default=False, cast=bool)
 
 
-# Email config
-EMAIL_BACKEND = config(
-    'EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+# Email config (SENDGRID API used)
+SEND_GRID_API_KEY = config('SEND_GRID_API_KEY', default='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')
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_HOST = config('EMAIL_HOST', default='')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.sendgrid.net')
+EMAIL_HOST_USER = config(
+    'EMAIL_HOST_USER', default='bicyclesharing101@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='cse499asns1sir')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='no_reply@bi-cyclesharing.com')
+ACCOUNT_EMAIL_SUBJECT_PREFIX = config('ACCOUNT_EMAIL_SUBJECT_PREFIX', default='contact@bi-cyclesharing.com')
+
+# other email & pass
+# piasaneon619@gmail.com hello@123
+# bicyclesharing101@gmail.com cse499asns1sir
+
+#rest framework settings
+# Pagination control. How many objects per page will be returned.
+# PERMISSION Access
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}

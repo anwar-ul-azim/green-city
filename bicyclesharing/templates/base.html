@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+{% load i18n %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +45,7 @@
     <!-- main div -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-5">
           <!-- message -->
           {% include 'message.html' %}
           <!-- main content -->

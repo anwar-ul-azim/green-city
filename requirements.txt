@@ -4,6 +4,7 @@ django-ckeditor==5.6.1
 django-phonenumber-field==2.3.0
 django-widget-tweaks==1.4.3
 djangorestframework==3.9.2
+djangorestframework_simplejwt==4.3.0
 phonenumbers==8.10.8
 Pillow==5.4.1
 PyJWT==1.7.1

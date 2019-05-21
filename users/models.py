@@ -16,10 +16,10 @@ class Profile(models.Model):
         default='default.jpg', upload_to=upload_pic_to)
     phone_number = PhoneNumberField()
     address = models.CharField(max_length=255, verbose_name="Present Address")
-    is_email_verified = models.BooleanField(default=False)    
+    is_email_verified = models.BooleanField(default=False) 
     
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username} Profile' 
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
@@ -32,6 +32,7 @@ class Profile(models.Model):
 class Verify(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     nid = models.CharField(max_length=23, verbose_name="NID")
+
     nid_front = models.ImageField(
         verbose_name="NID Front Picture", upload_to=upload_pic_to)
     nid_back = models.ImageField(
@@ -43,3 +44,6 @@ class Verify(models.Model):
 
     is_verified = models.BooleanField(default=False)
     is_verify_submit = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Green City{% endblock %}
+{% load i18n %}
 {% block content %}
     {% if user.is_authenticated %}
     <div class="container">
@@ -37,16 +38,16 @@
                         {% endfor %}
                         <hr>                        
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
+                            <ul class="pagination pagination-sm justify-content-end">
                                 {% if cycles.has_previous %}
                                     <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                                    <li class="page-item"><a class="page-link" href="?page={{ cycles.previous_page_number }}">&laquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ cycles.previous_page_number }}"><i class="fas fa-angle-double-left"></i></a></li>
                                 {% endif %}
                                 {% for page in cycles.paginator.page_range %}
                                     <li {% if page == cycles.number %} class="page-item disabled" {% else %} class="page-item" {% endif %}><a class="page-link" href="?page={{page}}">{{page}}</a></li>
                                 {% endfor %}
                                 {% if cycles.has_next %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ cycles.next_page_number }}">&raquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ cycles.next_page_number }}"><i class="fas fa-angle-double-right"></i></a></li>
                                     <li class="page-item"><a class="page-link" href="?page={{ cycles.paginator.num_pages }}">Last</a></li>
                                 {% endif %}
                             </ul>

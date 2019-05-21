@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="{% url 'home' %}">
@@ -11,23 +12,23 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">PROFILE</a>
+                        <a class="nav-link" href="{% url 'profile' %}"> {% trans "PROFILE" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'post' %}">POST</a>
+                        <a class="nav-link" href="{% url 'post' %}"> {% trans "POST" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'balance' %}">BALANCE</a>
+                        <a class="nav-link" href="{% url 'balance' %}">{% trans "BALANCE" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans "LOGOUT" %}  <i class="fas fa-sign-out-alt"></i></a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                        <a class="nav-link" href="{% url 'register' %}">{% trans "REGISTER" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                        <a class="nav-link" href="{% url 'login' %}">{% trans "LOGIN" %}  <i class="fas fa-sign-in-alt"></i></a>
                     </li>
                 {% endif %}
             </ul>
