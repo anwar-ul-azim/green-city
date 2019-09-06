@@ -65,12 +65,7 @@ by paying the **due**.
 #### Installation
 
 ***
-You can use our service from any modern web browser or download our native app 
-from app-store to use it on an android or ios device.
-
-[web](#) | |
-[android](#) | |
-[ios](#)
+You can use our service from any modern web browser.
 
 ### About Us
 
@@ -94,14 +89,6 @@ we are capable of doing something that is unique, challenging and experience of 
 * $ `python manage.py collectstatic`  **create static folders**
 * $ `python manage.py createsuperuser`  **create super user**
     
-
-### Config  
-
-***
-
-### API
-
-***
 
 ### Development Guide:
     * commit all your work in a separate branch.
