@@ -70,8 +70,7 @@ You can use our service from any modern web browser.
 ### About Us
 
 ***
-We([mizan](https://github.com/MizaN13), [pias](https://github.com/paul-pias), [sadat](https://github.com/Nazmush), [anwar](https://github.com/anwar-ul-azim), ) are some jobless CSE graduate software engineers who wants to prove our selfs that
-we are capable of doing something that is unique, challenging and experience of real work.
+We([mizan](https://github.com/MizaN13), [pias](https://github.com/paul-pias), [sadat](https://github.com/Nazmush), [anwar](https://github.com/anwar-ul-azim), ) have completed our graduation in Bachelor of Science in Computer Science and Engineering from North South University.
 
 ### Project Setup 
 
